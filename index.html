@@ -290,18 +290,18 @@ const LEVELS=[
    ['abu','يا بوي! هذا مش ترقية، هذا عقاب!','Oh no! That\'s not a promotion, that\'s a punishment!'],
    ['abu','الساعة خمس... خلاص، وقت الروحة! السرير يناديني.','Five o\'clock... finally, home time! My bed is calling.']],
   fail:['عم أحمد فاز هالمرة!','Uncle Ahmad wins this round!']},
- {name:'Closing Time',ar:'وقت الإغلاق',len:480,speed:295,bg:'closing',goal:'door',chaser:'rash',chase:['في قيدة؟','استنى يا أبو نواف!','بس خمس دقايق!','الشاهي حقي فين؟'],
+ {name:'Closing Time',ar:'وقت الإغلاق',len:480,speed:295,bg:'closing',goal:'door',chaser:'rash',chase:['قايده هنا؟','استنى يا أبو نواف!','بس خمس دقايق!','الشاهي حقي فين؟'],
   enemies:['late','rat'],obs:['box','forklift','hook'],boss:'rash',
   intro:[
    ['abu','الساعة خمس! خلاص الدوام انتهى، بروّح أرقد.','It\'s five o\'clock! Work is over, I\'m going home to sleep.'],
-   ['rash','السلام عليكم يا أبو نواف... في قيدة؟','Peace be upon you, Abu Nawaf... is there qaydeh?'],
-   ['abu','رشيدة؟! لا لا لا... مابش قيدة! المحل مقفّل!','Rasheedeh?! No no no... there\'s no qaydeh! We\'re closed!'],
-   ['rash','ما عليه، بقعد أنتظرها شوي. جيب لي شاهي.','No problem, I\'ll sit and wait a bit. Bring me some tea.'],
+   ['rash','السلام عليكم يا أبو نواف... قايده هنا؟','Peace be upon you, Abu Nawaf... is Qaydeh here?'],
+   ['abu','رشيدة؟! لا لا لا... قايده روّح من العصر! المحل مقفّل!','Rasheedeh?! No no no... Qaydeh left hours ago! We\'re closed!'],
+   ['rash','ما عليه، بقعد أنتظره شوي. أكيد بيرجع. جيب لي شاهي.','No problem, I\'ll sit and wait for him a bit. He\'ll be back for sure. Bring me some tea.'],
    ['abu','"شوي"؟! آخر مرة "شوي" حقك خلصت الساعة اثنعش بالليل!','"A bit"?! Last time your "a bit" ended at midnight!'],
    ['abu','الليلة لازم أطلّعه من زاد الخير... ولو بالتمر! ولو بلكم راعه!','Tonight I\'m getting him out of Zad Al Khair... with dates if I must! With a لكم راعه if I must!'],
    ['tip','عدّي زباين آخر دقيقة، وطلّع رشيدة من الباب. التقط قبضة "لكم راعه" عشان تمسح الشاشة كلها.','Get past the last-minute customers, then push Rasheedeh out the door. Grab the لكم راعه fist to wipe out every enemy on screen.']],
-  bossLines:['في قيدة؟','بس خمس دقايق!','الشاهي برد!','لسا بدري!','قيدة جاية الحين!'],
-  win:[['rash','طيب طيب... بكرة أجي بدري عشان قيدة.','Okay, okay... tomorrow I\'ll come early for qaydeh.'],
+  bossLines:['قايده هنا؟','بس خمس دقايق!','الشاهي برد!','لسا بدري!','قايده جاي الحين!','اتصل على قايده!'],
+  win:[['rash','طيب طيب... بكرة أجي بدري عشان ألحق قايده.','Okay, okay... tomorrow I\'ll come early to catch Qaydeh.'],
    ['abu','بكرة الجمعة يا رشيدة! زاد الخير مقفّل! روح بيتك!','Tomorrow is Friday, Rasheedeh! Zad Al Khair is closed! Go home!'],
    ['rash','خلاص أجي بعد الجمعة... وأقعد للعشاء.','Then I\'ll come after Friday prayer... and stay for dinner.'],
    ['abu','يا بوووي...','Oh my fatheeer...'],
@@ -463,7 +463,7 @@ function fail(){
 
 // ================= Funny fail scenes =================
 const SCENES=[['رجع للسرير... بالنعال','Back to bed. By slipper.'],['سلّف الراتب كامل · الباقي ٠ ريال','Lent out the whole salary. Balance: 0'],['التشخيص: يحب السلتة زيادة','Diagnosis: loves saltah too much'],
-  ['مندي أبو نواف · طازج','Abu Nawaf mandi, fresh'],['عم أحمد ١ · أبو نواف ٠','Uncle Ahmad 1, Abu Nawaf 0'],['رشيدة قعد لين الفجر... ولسا يسأل عن قيدة','Stayed till dawn. Still asking about qaydeh.'],['العم صالح أكل آخر قطعة','Uncle Saleh ate the last piece']];
+  ['مندي أبو نواف · طازج','Abu Nawaf mandi, fresh'],['عم أحمد ١ · أبو نواف ٠','Uncle Ahmad 1, Abu Nawaf 0'],['رشيدة قعد لين الفجر... ولسا يسأل عن قايده','Stayed till dawn. Still asking about Qaydeh.'],['العم صالح أكل آخر قطعة','Uncle Saleh ate the last piece']];
 function drawScene(cv2,i){
   const save=ctx;ctx=cv2.getContext('2d');ctx.setTransform(2,0,0,2,0,0);const Wd=320,Hd=200,gy=150;
   const bgs=['#f3dfb8','#9cc6e6','#e9eef0','#f6d29a','#4a4e57','#3a1f22'];ctx.fillStyle=bgs[i];ctx.fillRect(0,0,Wd,Hd);
