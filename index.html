@@ -149,7 +149,7 @@ button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
       <div class="title-en">The Adventures of Abu Nawaf</div>
       <div class="wallet">ريال <span class="walletN">0</span></div>
       <div class="levels" id="levels"></div>
-      <div class="btns"><button class="ghost" id="shopBtn">Upgrades · ترقيات</button></div>
+      <div class="btns"><button class="ghost" id="shopBtn">Upgrades · ترقيات</button><a id="go3d" href="3d/" hidden style="font-family:var(--f-display);font-size:1.1rem;padding:9px 20px;border-radius:999px;background:var(--sadu);color:#fff;text-decoration:none">النسخة ثري دي · 3D</a></div>
       <div id="rotate">Turn your phone sideways for the best view · لف الجوال بالعرض</div>
       <div class="hint">Tap the screen to jump. Hold ارمِ to throw, hold انبطح to duck.<br>Keyboard: Space jump · ↓ duck · F throw</div>
     </div>
@@ -1084,6 +1084,7 @@ function draw(){
 }
 function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;update(dt);draw();requestAnimationFrame(loop)}
 FACE.onload=()=>{drawHero()};
+if(/github\.io$/.test(location.hostname))$('go3d').hidden=false;
 renderMenu();requestAnimationFrame(loop);
 })();
 </script>
