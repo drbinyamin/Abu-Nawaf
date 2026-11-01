@@ -192,7 +192,7 @@ const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const NAMES={abu:'أبو نواف · Abu Nawaf',umm:'أم نواف · Umm Nawaf',woman:'امرأة في الشارع · A lady',nurse:'الممرضة · Nurse',doctor:'الدكتور · The doctor',
   ghazi:'أم غازي · Umm Ghazi',manager:'المدير · The manager',saleh:'العم صالح · Uncle Saleh',tip:'كيف تلعب · How to play'};
 const LEVELS=[
- {name:'Wake Up for Work',ar:'قوم الدوام',len:430,speed:245,bg:'home',goal:'door',
+ {name:'Wake Up for Work',chaser:'umm',chase:['قوم الدوام!','وين رايح بفردة جزمة؟!','النعال جاي!','المدير بيخصم عليك!'],ar:'قوم الدوام',len:430,speed:245,bg:'home',goal:'door',
   enemies:['kid','kid'],obs:['toy','bucket','slipperHi','pillow'],
   intro:[
    ['umm','أبو نواف! قوم! الساعة سبع ونص ودوامك في زاد الخير!','Abu Nawaf! Get up! It\'s 7:30 and you have work at Zad Al Khair!'],
@@ -206,7 +206,7 @@ const LEVELS=[
    ['umm','وإياك تتلفت على الحريم في الطريق!','And don\'t you dare look at women on the way!'],
    ['abu','أنا؟! أتلفت؟! أنا رجّال محترم وأبو... كم عيالنا يا مَرَه؟','Me?! Look?! I\'m a respectable man, father of... how many kids do we have, woman?']],
   fail:['العيال أخذوا كل التمر!','The kids took all the dates!']},
- {name:'Tahlia Street',ar:'شارع التحلية',len:480,speed:265,bg:'street',goal:'hospital',
+ {name:'Tahlia Street',chaser:'umm',chase:['تسأل عن الطريق هاه؟!','يا وردة؟! أوريك الوردة!','ارجع هنا يا مسؤول الكراتين!'],ar:'شارع التحلية',len:480,speed:265,bg:'street',goal:'hospital',
   enemies:['borrower','greeter'],obs:['bump','car','saher','cone'],
   intro:[
    ['abu','يا سلام على جدة الصبح... الجو حالي والله.','Ahh, Jeddah in the morning... lovely weather, by God.'],
@@ -217,7 +217,7 @@ const LEVELS=[
    ['tip','ارجم أهل السلفة وأبو السلامات. نط فوق المطبات، وانبطح تحت فلاش ساهر.','Throw dates at the borrowers and the endless greeter. Jump speed bumps, duck the Saher flash.']],
   win:[['abu','نجوت من ساهر ومن السلفة! بس... ليش ناس المستشفى يأشروا عليّ؟','Escaped Saher and the borrowers! But... why are those hospital people pointing at me?']],
   fail:['سلّفت راتبك كله!','You lent out your whole salary!']},
- {name:'Escape the Psych Ward',ar:'الهروب من جناح النفسية',len:460,speed:270,bg:'ward',goal:'exit',
+ {name:'Escape the Psych Ward',chaser:'staff',chase:['الجاكيت جاهز!','وقت الحبة!','غرفة سبعة تنتظرك!'],ar:'الهروب من جناح النفسية',len:460,speed:270,bg:'ward',goal:'exit',
   enemies:['nurse','orderly'],obs:['wheelchair','wet','iv'],boss:'doctor',
   intro:[
    ['nurse','هذا هو! المريض اللي شرد من غرفة سبعة!','That\'s him! The patient who ran away from room seven!'],
@@ -231,7 +231,7 @@ const LEVELS=[
   win:[['doctor','طيب طيب... روح. بس تعال المراجعة يوم الخميس.','Fine, fine... go. But come back for your follow-up on Thursday.'],
    ['abu','إن شاء الله يا دكتور... (والله ما ترجع رجلي هنا)','God willing, doctor... (my feet are never coming back here)']],
   fail:['لبّسوك الجاكيت!','They got you in the jacket!']},
- {name:'Umm Ghazi\'s Alley',ar:'حارة أم غازي',len:460,speed:280,bg:'alley',goal:'zadsign',
+ {name:'Umm Ghazi\'s Alley',chaser:'ghazi',chase:['يا مندي!','ريحتك تجنن!','استنى يا حبة الرز!'],ar:'حارة أم غازي',len:460,speed:280,bg:'alley',goal:'zadsign',
   enemies:['cat','goat'],obs:['pot','sack','ladle'],boss:'ghazi',
   intro:[
    ['ghazi','أبو نواف! ريحتك ريحة مندي من آخر الحارة!','Abu Nawaf! You smell like mandi from the end of the street!'],
@@ -243,7 +243,7 @@ const LEVELS=[
   win:[['ghazi','شبعت... تمرك حالي. بكرة جيب معك مندي حقيقي.','I\'m full... your dates are sweet. Tomorrow bring real mandi.'],
    ['abu','بكرة أغيّر طريقي... وأغيّر اسمي.','Tomorrow I change my route... and my name.']],
   fail:['أم غازي حسبتك مندي!','Umm Ghazi mistook you for mandi!']},
- {name:'Zad Al Khair',ar:'زاد الخير',len:500,speed:290,bg:'warehouse',goal:'cashier',
+ {name:'Zad Al Khair',chaser:'manager',chase:['متأخر ساعتين!','خصم! خصم!','فين التقرير؟!'],ar:'زاد الخير',len:500,speed:290,bg:'warehouse',goal:'cashier',
   enemies:['rat','customer'],obs:['box','forklift','hook'],boss:'manager',
   intro:[
    ['manager','أبو نواف! جيت متأخر ساعتين!','Abu Nawaf! You\'re two hours late!'],
@@ -256,7 +256,7 @@ const LEVELS=[
    ['abu','مسؤول كراتين أول! يا بوي! لازم أبشّر أم نواف!','Senior Head of Boxes! Oh my! I have to tell Umm Nawaf!'],
    ['saleh','أبو نواف! العزيمة بدأت والكبسة على السفرة!','Abu Nawaf! The feast has started and the kabsa is on the table!']],
   fail:['المدير خصم عليك!','The manager docked your pay!']},
- {name:'The Family Feast',ar:'العزيمة',len:500,speed:300,bg:'feast',goal:'kabsa',
+ {name:'The Family Feast',chaser:'saleh',chase:['اللحمة حقي!','احترم الكبير!','وقّف يا ولد!'],ar:'العزيمة',len:500,speed:300,bg:'feast',goal:'kabsa',
   enemies:['eidkid','cat'],obs:['plate','cushion','dallah'],boss:'saleh',
   intro:[
    ['abu','كبسة؟! بعد يوم مثل هذا؟ ذلحين وقت الأكل!','Kabsa?! After a day like this? Now it\'s eating time!'],
@@ -296,11 +296,11 @@ const sfx={jump:()=>tone(300,600,.12,'square',.05),coin:()=>tone(880,1320,.08,'t
   fail:()=>[392,330,262,196].forEach((f,i)=>tone(f,f*.98,.18,'square',.05,i*.13)),blip:()=>tone(660,660,.04,'square',.03),boss:()=>[196,185,175,165].forEach((f,i)=>tone(f,f,.2,'sawtooth',.06,i*.15))};
 
 // ================= Game state =================
-let state='menu',L=null,lvIdx=0,abu,obs,foes,shots,items,dist,t,hearts,inv,coins,particles,texts,shake,nextGap,fireCd,boss,duckHeld=false,fireHeld=false,last=performance.now();
+let chaseT=2,state='menu',L=null,lvIdx=0,abu,obs,foes,shots,items,dist,t,hearts,inv,coins,particles,texts,shake,nextGap,fireCd,boss,duckHeld=false,fireHeld=false,last=performance.now();
 const G=2200,JUMP=700,CUT=.45;
 function resetLevel(i){
   lvIdx=i;L=LEVELS[i];abu={x:110,y:GROUND,vy:0,ground:true,leg:0,buf:0,jumps:0};
-  obs=[];foes=[];shots=[];items=[];dist=0;t=0;hearts=maxHearts();inv=0;coins=0;particles=[];texts=[];shake=0;nextGap=420;fireCd=0;boss=null;
+  obs=[];foes=[];shots=[];items=[];dist=0;t=0;hearts=maxHearts();inv=0;coins=0;particles=[];texts=[];shake=0;nextGap=420;fireCd=0;boss=null;chaseT=2;
 }
 resetLevel(0);
 
@@ -458,6 +458,7 @@ function spawn(){
 function startBoss(){
   const d=BOSS[L.boss];boss={k:L.boss,x:W+80,tx:W-110,y:GROUND,hp:d.hp,max:d.hp,w:d.w,h:d.h,cd:1.6,talk:1,flash:0};
   sfx.boss();say('!'+d.name.split(' · ')[0]+'!',W/2,90,'#c7362f',24,1.6);
+  if(L.chaser===L.boss)say('اختصر الطريق وسبقك!',W/2,120,'#fdf4e3',16,1.8);
   $('lvlName').textContent=d.name;$('progWrap').classList.add('boss');
 }
 
@@ -504,6 +505,7 @@ function update(dt){
   foes=foes.filter(f=>f.x>-60&&f.hp>0);
   items.forEach(c=>{c.x-=dx;if(up.magnet){const ddx=abu.x-c.x,ddy=(abu.y-40)-c.y,d=Math.hypot(ddx,ddy);if(d<150){c.x+=ddx/d*380*dt;c.y+=ddy/d*380*dt}}});
   items=items.filter(c=>c.x>-20&&!c.got);
+  if(L.chaser&&!boss){chaseT-=dt;if(chaseT<=0){chaseT=2.8+Math.random()*2.5;say(rnd(L.chase),Math.max(70,chaserX()+40),GROUND-(L.chaser==='ghazi'?180:110),'#f2b632',15,1.6)}}
   // boss behaviour
   if(boss){boss.x+=(boss.tx-boss.x)*Math.min(1,dt*2);boss.cd-=dt;boss.talk-=dt;if(boss.flash>0)boss.flash-=dt;
     if(boss.cd<=0){boss.cd=1.25+Math.random()*.8-(lvIdx*.05);const d=BOSS[boss.k],hi=Math.random()<.5,k=hi?d.high:d.low,o=OB[k];
@@ -659,7 +661,7 @@ function drawAbu(){if(inv>0&&Math.floor(t*16)%2)return;drawAbuOn(ctx,abu,1)}
 
 // ================= Other characters (drawn facing left, toward Abu) =================
 function person(x,y,s,o){ // o: legs, body, robe, skin, head, mouthOpen, arms ('reach'|'out'|'hold'), item
-  ctx.save();ctx.translate(x,y);ctx.scale(-s,s);const run=Math.sin(t*12+(o.ph||0));
+  ctx.save();ctx.translate(x,y);ctx.scale(o.right?s:-s,s);const run=Math.sin(t*12+(o.ph||0));
   ctx.fillStyle='rgba(0,0,0,.2)';ell(0,2,14,3);
   if(o.robe){ctx.fillStyle=o.body;ctx.beginPath();ctx.moveTo(-12,0);ctx.lineTo(-10+run*2,-48);ctx.lineTo(10+run*2,-48);ctx.lineTo(13,0);ctx.fill();
     line(-4,-2,-6+run*4,0,3,'#3a2a22');line(4,-2,6-run*4,0,3,'#3a2a22')}
@@ -726,8 +728,31 @@ function drawBoss(b){
   else if(b.k==='saleh')person(x,y,1.4,{robe:true,body:'#f4f1ea',head:'shemagh',arms:'out',mouthOpen:true,beard:'#ddd'});
   ctx.restore();
 }
-function drawGhazi(x,y,s=1){
-  ctx.save();ctx.translate(x,y);ctx.scale(-s,s);const run=Math.sin(t*6),bob=Math.abs(run)*3;
+
+const chaserX=()=>{const m=maxHearts();return -34+((m-Math.max(0,hearts))/m)*90+Math.sin(t*3)*6};
+function drawUmm(x,y,s=1){
+  ctx.save();ctx.translate(x,y);ctx.scale(s,s);const run=Math.sin(t*14);
+  ctx.fillStyle='rgba(0,0,0,.2)';ell(0,2,20,3);
+  ctx.fillStyle='#111';ctx.beginPath();ctx.moveTo(-18,0);ctx.lineTo(-10+run*3,-60);ctx.lineTo(10+run*3,-60);ctx.lineTo(20,0);ctx.fill();
+  circ(run*2,-70,13);ctx.fillStyle='#2a2a2a';ctx.fillRect(-9+run*2,-74,18,6);
+  ctx.fillStyle='#fff';circ(-4+run*2,-71,2);circ(4+run*2,-71,2);ctx.fillStyle='#111';circ(-3+run*2,-71,1);circ(5+run*2,-71,1);
+  ctx.strokeStyle='#fff';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(-7+run*2,-76);ctx.lineTo(-1+run*2,-74);ctx.moveTo(7+run*2,-76);ctx.lineTo(1+run*2,-74);ctx.stroke();
+  line(8,-55,18,-80+Math.sin(t*10)*6,6,'#111');
+  ctx.save();ctx.translate(20,-86+Math.sin(t*10)*6);ctx.rotate(Math.sin(t*10)*.6);ctx.fillStyle='#2f6fb3';rr(-5,-12,10,24,5);ctx.fillStyle='#f2b632';ctx.fillRect(-4,-4,8,2);ctx.restore();
+  ctx.restore();
+}
+function drawChaser(){
+  if(!L||!L.chaser||state==='menu'||boss||(L.boss&&dist>=L.len*10))return;
+  const x=chaserX();
+  if(L.chaser==='umm')drawUmm(x+40,GROUND,1.05);
+  else if(L.chaser==='staff'){person(x+20,GROUND,1.05,{right:true,body:'#4f9a86',legs:'#4f9a86',head:'cap',capCol:'#4f9a86',arms:'hold',item:'jacket',mouthOpen:true,ph:0});
+    person(x+54,GROUND,1,{right:true,body:'#f4f1ea',legs:'#f4f1ea',head:'nurse',skin:'#d9a77c',arms:'reach',item:'syringe',mouthOpen:true,ph:2})}
+  else if(L.chaser==='ghazi')drawGhazi(x+30,GROUND,1.2,true);
+  else if(L.chaser==='manager')person(x+40,GROUND,1.2,{right:true,body:'#2b2550',legs:'#2b2550',head:'hair',arms:'out',mouthOpen:true,glasses:true});
+  else if(L.chaser==='saleh')person(x+40,GROUND,1.25,{right:true,robe:true,body:'#f4f1ea',head:'shemagh',arms:'reach',mouthOpen:true,beard:'#ddd'});
+}
+function drawGhazi(x,y,s=1,right){
+  ctx.save();ctx.translate(x,y);ctx.scale(right?s:-s,s);const run=Math.sin(t*6),bob=Math.abs(run)*3;
   ctx.fillStyle='rgba(0,0,0,.25)';ell(0,2,34,5);
   ctx.fillStyle='#3a2a22';rr(-16+run*4,-14,10,14,3);rr(6-run*4,-14,10,14,3);
   ctx.fillStyle='#2f7a4a';ctx.beginPath();ctx.moveTo(-36,-12);ctx.quadraticCurveTo(-46,-70-bob,-24,-96-bob);ctx.lineTo(24,-96-bob);ctx.quadraticCurveTo(46,-70-bob,36,-12);ctx.fill();
@@ -821,7 +846,7 @@ function draw(){
   ctx.setTransform(scale,0,0,scale,0,OY*scale);ctx.filter='none';
   if(shake>0){ctx.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.86;if(shake<.3)shake=0}
   (BG[L?L.bg:'home']||bgHome)();
-  drawGoal();items.forEach(drawItem);obs.forEach(drawObs);foes.forEach(drawFoe);if(boss)drawBoss(boss);
+  drawGoal();items.forEach(drawItem);obs.forEach(drawObs);foes.forEach(drawFoe);if(boss)drawBoss(boss);drawChaser();
   drawAbu();shots.forEach(drawShot);
   for(const p of particles){if(p.ring){ctx.strokeStyle=`rgba(253,244,227,${p.life*2})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.stroke();continue}
     ctx.globalAlpha=Math.min(1,p.life*2.2);ctx.fillStyle=p.col||'#c8aa82';circ(p.x,p.y,p.r)}ctx.globalAlpha=1;
