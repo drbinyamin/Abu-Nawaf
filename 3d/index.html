@@ -64,7 +64,7 @@ body{background:var(--ink);color:var(--paper);font-family:var(--f-body);overflow
 .joy{position:absolute;left:max(18px,env(safe-area-inset-left,0px));bottom:max(18px,env(safe-area-inset-bottom,0px));width:130px;height:130px;border-radius:50%;
   background:rgba(30,26,43,.45);border:2px solid var(--line);touch-action:none}
 .joy i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(242,182,50,.75);border:2px solid var(--paper)}
-.btns{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));width:200px;height:210px;pointer-events:none}
+.btns{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));width:224px;height:214px;pointer-events:none}
 .cb{position:absolute;border-radius:50%;border:2px solid var(--line);color:var(--paper);font-family:var(--f-display);text-align:center;line-height:1;display:grid;place-items:center;padding:0;margin:0;pointer-events:auto;touch-action:none}
 .cb small{display:block;font-family:var(--f-body);font-size:.58rem;opacity:.85;margin-top:2px}
 .cb.on{filter:brightness(1.4);transform:scale(.94)}
@@ -118,7 +118,13 @@ button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
 .dfoot span{font-size:.72rem;opacity:.6}.dfoot button{font-size:1rem;padding:6px 16px}
 .rot{font-size:.78rem;opacity:.75;margin-top:8px}
 @media (orientation:landscape){.rot{display:none}}
-@media (prefers-reduced-motion:reduce){.hero,#bPun,.pbtn.shop{animation:none}}
+@media (max-height:480px){.keys{display:none}.hero{width:64px;height:84px}}
+#bFaz{right:150px;bottom:142px;width:64px;height:64px;background:rgba(199,54,47,.92);font-size:1rem;border-color:var(--gold);animation:pulse .5s ease-in-out infinite alternate}
+.bar.rage{height:5px;margin-top:3px}.bar.rage i{background:linear-gradient(90deg,#f2b632,#fff1a8);width:0}
+.chap{display:grid;gap:8px;margin-top:12px}
+.chap button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;font-size:1.1rem;padding:10px 18px;border-radius:16px}
+.chap button span{font-family:var(--f-body);font-size:.72rem;opacity:.8}
+@media (prefers-reduced-motion:reduce){.hero,#bPun,.pbtn.shop,#bFaz{animation:none}}
 </style>
 
 </head>
@@ -133,10 +139,10 @@ button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
   <div id="titleBox"></div>
 
   <div class="hud" id="hud" hidden>
-    <div class="box hp"><div class="lbl"><span>Abu Nawaf</span><span id="hpTxt"></span></div><div class="bar"><i id="hpBar"></i></div><div class="coins" id="coins">ريال 0</div></div>
+    <div class="box hp"><div class="lbl"><span>Abu Nawaf</span><span id="hpTxt"></span></div><div class="bar"><i id="hpBar"></i></div><div class="bar rage"><i id="rageBar"></i></div><div class="coins" id="coins">ريال 0</div></div>
     <div class="box obj"><div class="t" id="objAr"></div><div class="e" id="objEn"></div>
       <div class="bossbar" id="bossBox" hidden><div class="n" id="bossName"></div><div class="bar"><i id="bossBar"></i></div></div></div>
-    <div class="side"><button class="pbtn" id="pauseBtn">Pause</button><button class="pbtn shop" id="shopBtn" hidden>الدكان · Shop</button></div>
+    <div class="side"><button class="pbtn" id="pauseBtn">Pause</button><button class="pbtn" id="musBtn">Music on</button><button class="pbtn shop" id="shopBtn" hidden>الدكان · Shop</button></div>
   </div>
 
   <div class="joy" id="joy" hidden><i id="knob"></i></div>
@@ -146,20 +152,22 @@ button:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
     <button class="cb" id="bRol">تدحرج<small>dodge</small></button>
     <button class="cb" id="bWpn">بدّل<small id="wpnSub"></small></button>
     <button class="cb" id="bPun" hidden>لكم راعه<small id="punN">×1</small></button>
+    <button class="cb" id="bFaz" hidden>فزعة<small>rage</small></button>
   </div>
 
   <div class="card" id="menu">
     <div class="panel">
       <img class="hero" id="heroImg" alt="Abu Nawaf">
       <h1 class="title-ar">أبو نواف ثري دي</h1>
-      <div class="title-en">Abu Nawaf 3D · Chapter 1: Zad Al Khair</div>
-      <p>Wake up, survive Tahlia Street, beat Uncle Ahmad at the till, and get Rasheedeh out before midnight.</p>
+      <div class="title-en">Abu Nawaf 3D · 2 chapters</div>
       <div class="keys">
         <b>Phone</b><span>Joystick to walk. ارمِ attacks the nearest enemy (a slap up close). تدحرج dodges through attacks.</span>
-        <b>Keyboard</b><span>WASD · Space jump · F attack · Shift dodge · Q switch · R لكم راعه · E shop</span>
+        <b>Keyboard</b><span>WASD · Space jump · F attack · Shift dodge · Q switch · R لكم راعه · V فزعة · E shop</span>
         <b>Tip</b><span>A red circle under an enemy means an attack is coming. Dodge!</span>
       </div>
-      <div class="row"><button id="startBtn">Start · ابدأ</button><button class="ghost" id="contBtn" hidden>Continue</button></div>
+      <div class="chap"><button id="startBtn">الفصل الأول · Zad Al Khair<span>Bed → Tahlia St → Uncle Ahmad → Rasheedeh</span></button>
+        <button id="ch2Btn">الفصل الثاني · The great escape<span>Psych ward → Umm Ghazi → the feast</span></button>
+        <button class="ghost" id="contBtn" hidden>Continue where you left off</button></div>
       <div class="rot">Turn your phone sideways for the best view · لف الجوال بالعرض</div>
     </div>
   </div>
@@ -193,7 +201,7 @@ const MOBILE=matchMedia('(pointer:coarse)').matches;
 
 // ================= Sound =================
 let ac=null;
-function audio(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume()}
+function audio(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();musStart()}
 function tone(f1,f2,d,type='square',v=.06,dl=0){if(!ac)return;const t0=ac.currentTime+dl,o=ac.createOscillator(),g=ac.createGain();
   o.type=type;o.frequency.setValueAtTime(f1,t0);o.frequency.exponentialRampToValueAtTime(Math.max(30,f2),t0+d);g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(g).connect(ac.destination);o.start(t0);o.stop(t0+d+.02)}
 function noise(d=.5,v=.35,f=600,pow=2){if(!ac)return;const len=ac.sampleRate*d,b=ac.createBuffer(1,len,ac.sampleRate),x=b.getChannelData(0);for(let i=0;i<len;i++)x[i]=(Math.random()*2-1)*Math.pow(1-i/len,pow);
@@ -203,6 +211,30 @@ const sfx={throw:()=>tone(700,350,.07,'triangle',.05),hit:()=>{tone(260,120,.08,
   jump:()=>tone(300,600,.12,'square',.04),pick:()=>[660,880,1175].forEach((f,i)=>tone(f,f,.1,'triangle',.06,i*.07)),coin:()=>tone(1200,1600,.06,'triangle',.04),
   honk:()=>{tone(420,420,.25,'square',.06);tone(520,520,.25,'square',.05)},win:()=>[523,659,784,1046].forEach((f,i)=>tone(f,f,.14,'triangle',.07,i*.1)),
   boss:()=>[196,185,175,165].forEach((f,i)=>tone(f,f,.2,'sawtooth',.06,i*.15)),blip:()=>tone(660,660,.04,'square',.03),boom:()=>{noise(.6,.5,500,2);tone(90,40,.5,'sawtooth',.1)},buy:()=>[523,784,1046].forEach((f,i)=>tone(f,f,.1,'sine',.08,i*.07))};
+
+// ================= Music (procedural, maqam hijaz + darbuka maqsum) =================
+const MUS={on:store.get('music',true),gain:null,step:0,next:0,timer:null,level:1,mel:[],nb:null};
+const HIJ=[0,1,4,5,7,8,10];
+const nf=deg=>{const o=Math.floor(deg/7),i=((deg%7)+7)%7;return 146.83*Math.pow(2,(HIJ[i]+12*o)/12)};
+function musStart(){if(!ac||MUS.timer)return;MUS.gain=ac.createGain();MUS.gain.gain.value=MUS.on?.45:0;MUS.gain.connect(ac.destination);
+  const len=Math.floor(ac.sampleRate*.3);MUS.nb=ac.createBuffer(1,len,ac.sampleRate);const d=MUS.nb.getChannelData(0);for(let i=0;i<len;i++)d[i]=Math.random()*2-1;
+  MUS.next=ac.currentTime+.15;newMelody();MUS.timer=setInterval(musTick,25)}
+function newMelody(){let deg=Math.random()<.5?4:7;const A=[];for(let i=0;i<16;i++){if(i%2===0||Math.random()<.3){deg=Math.max(0,Math.min(11,deg+rnd([-2,-1,-1,0,1,1,2])));A.push(Math.random()<.15?null:deg)}else A.push(null)}
+  const B=A.map(v=>v===null?null:Math.max(0,Math.min(11,v+rnd([-1,0,1]))));const E=B.slice();E[12]=2;E[13]=1;E[14]=0;E[15]=null;MUS.mel=[...A,...B,...A,...E]}
+function musTick(){if(!ac||!MUS.gain)return;const spb=60/(MUS.level>=2?124:100)/4;let guard=0;while(MUS.next<ac.currentTime+.15&&guard++<16){musStep(MUS.step,MUS.next);MUS.next+=spb;MUS.step=(MUS.step+1)%64;if(MUS.step===0)newMelody()}
+  if(MUS.next<ac.currentTime)MUS.next=ac.currentTime+.05}
+function mtone(f,t0,d,type,v,filt){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+.006);g.gain.exponentialRampToValueAtTime(.0001,t0+d);
+  if(filt){const fl=ac.createBiquadFilter();fl.type='lowpass';fl.frequency.setValueAtTime(filt,t0);fl.frequency.exponentialRampToValueAtTime(400,t0+d);o.connect(fl).connect(g)}else o.connect(g);g.connect(MUS.gain);o.start(t0);o.stop(t0+d+.02)}
+function mnoise(t0,d,v,f,type='highpass'){const sr=ac.createBufferSource(),g=ac.createGain(),fl=ac.createBiquadFilter();fl.type=type;fl.frequency.value=f;sr.buffer=MUS.nb;g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+d);sr.connect(fl).connect(g).connect(MUS.gain);sr.start(t0);sr.stop(t0+d+.02)}
+function musStep(st,t0){const s=st%16,lv=MUS.level;
+  if(s===0||s===8){const o=ac.createOscillator(),g=ac.createGain();o.frequency.setValueAtTime(120,t0);o.frequency.exponentialRampToValueAtTime(55,t0+.18);g.gain.setValueAtTime(.42,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+.25);o.connect(g).connect(MUS.gain);o.start(t0);o.stop(t0+.3)}
+  if(s===2||s===6||s===12)mnoise(t0,.06,.3,2500);
+  if(lv>=2&&s%2===1)mnoise(t0,.03,.1,4000);
+  if(lv>=2&&(s===4||s===14))mnoise(t0,.12,.12,7000,'bandpass');
+  if(s===0||s===8||(lv>=2&&(s===4||s===12)))mtone(73.42,t0,.35,'triangle',.26);
+  if(st%32===0)mtone(146.83,t0,3.2,'sine',.05);
+  const n=MUS.mel[st];if(n!=null){const fr=nf(n);mtone(fr,t0,.32,'sawtooth',.09,2600);mtone(fr*1.003,t0,.28,'triangle',.07)}}
+function setMusic(on){MUS.on=on;store.set('music',on);if(MUS.gain&&ac)MUS.gain.gain.setTargetAtTime(on?.45:0,ac.currentTime,.05);$('musBtn').textContent=on?'Music on':'Music off'}
 
 // ================= Faces =================
 function faceCanvas(kind){
@@ -226,12 +258,17 @@ function faceCanvas(kind){
     case'customer':x.fillStyle='#3a2a4a';x.beginPath();x.ellipse(64,90,58,74,0,0,7);x.fill();head('#d9a77c');x.fillStyle='#3a2a4a';x.fillRect(10,26,108,34);eyes(true);mouth(true);break;
     case'vendor':head('#a8784e');x.fillStyle='#fff';x.beginPath();x.ellipse(64,42,46,24,0,Math.PI,0);x.fill();eyes(true);x.fillStyle='#ccc';x.beginPath();x.ellipse(64,130,30,20,0,0,7);x.fill();mouth(false);break;
     case'driver':head('#c99a72');x.fillStyle='#2f6fb3';x.beginPath();x.ellipse(64,44,50,28,0,Math.PI,0);x.fill();x.fillRect(64,38,60,10);eyes(true);mouth(true);break;
+    case'doctor':head('#c99a72');x.fillStyle='#2a1a12';x.beginPath();x.ellipse(64,46,48,28,0,Math.PI,0);x.fill();eyes(true);x.strokeStyle='#1e1a2b';x.lineWidth=3;x.beginPath();x.arc(46,84,12,0,7);x.moveTo(94,84);x.arc(82,84,12,0,7);x.moveTo(58,84);x.lineTo(70,84);x.stroke();x.fillStyle='#3a2a22';x.beginPath();x.ellipse(64,128,26,14,0,0,7);x.fill();mouth(false);break;
+    case'nurse':head('#d9a77c');x.fillStyle='#2a1a12';x.beginPath();x.ellipse(64,50,48,26,0,Math.PI,0);x.fill();x.fillStyle='#fff';x.fillRect(30,14,68,24);x.fillStyle='#c7362f';x.fillRect(59,16,10,20);x.fillRect(54,21,20,10);eyes(true);mouth(false);break;
+    case'orderly':head('#a8784e');x.fillStyle='#4f9a86';x.beginPath();x.ellipse(64,46,50,28,0,Math.PI,0);x.fill();x.fillRect(64,40,58,10);eyes(true);mouth(true);break;
+    case'ghazi':x.fillStyle='#6b2d6e';x.beginPath();x.ellipse(64,92,62,78,0,0,7);x.fill();head('#8a5a3c');x.fillStyle='#6b2d6e';x.fillRect(10,24,108,30);eyes(true);x.fillStyle='#5a1a1a';x.beginPath();x.ellipse(64,122,20,16,0,0,7);x.fill();x.fillStyle='#e85a6a';x.beginPath();x.ellipse(64,128,12,7,0,0,7);x.fill();x.fillStyle='#7ab3d6';x.beginPath();x.ellipse(40,128,4,8,0,0,7);x.fill();break;
+    case'saleh':head('#b98a62');eyes(true);x.fillStyle='#e8e8e8';x.beginPath();x.ellipse(64,128,32,24,0,0,7);x.fill();x.fillStyle='#5a1a1a';x.beginPath();x.ellipse(64,114,9,6,0,0,7);x.fill();shemagh();break;
   }
   return c;
 }
 const texCache={};
 function faceTex(kind){if(!texCache[kind]){const t=new THREE.CanvasTexture(faceCanvas(kind));t.minFilter=THREE.LinearFilter;texCache[kind]=t}return texCache[kind]}
-function portrait(who){const c=$('por').getContext('2d');c.setTransform(1,0,0,1,0,0);c.fillStyle={abu:'#6b5a2a',umm:'#3a1f22',ahmad:'#2f7a4a',rash:'#3a5a7a',woman:'#2b2550',vendor:'#8a5a32'}[who]||'#f2b632';c.fillRect(0,0,152,152);
+function portrait(who){const c=$('por').getContext('2d');c.setTransform(1,0,0,1,0,0);c.fillStyle={abu:'#6b5a2a',umm:'#3a1f22',ahmad:'#2f7a4a',rash:'#3a5a7a',woman:'#2b2550',vendor:'#8a5a32',doctor:'#5f8fae',ghazi:'#2f7a4a',saleh:'#c7362f'}[who]||'#f2b632';c.fillRect(0,0,152,152);
   if(who==='tip'){c.fillStyle='#1e1a2b';c.font='96px Lalezar, system-ui';c.textAlign='center';c.fillText('؟',76,110);return}
   c.drawImage(faceCanvas(who),22,4,108,142)}
 
@@ -372,6 +409,58 @@ function buildWorld(){
   gate('exit',6,10,-171);
   kiosk(-17.4,-124,Math.PI/2);
 }
+const X2=200;
+function floorAt(m,w,d,x,z,y=.02){const f=new THREE.Mesh(new THREE.PlaneGeometry(w,d),m);f.rotation.x=-Math.PI/2;f.position.set(x,y,z);f.receiveShadow=true;scene.add(f);return f}
+function wheelchairProp(x,z,ry=0){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;box(.6,.1,.6,'#2f6fb3',0,.55,0,g);box(.6,.6,.08,'#2f6fb3',0,.85,-.3,g);for(const s of[-1,1]){const w=cyl(.32,.32,.05,'#5a5a60',s*.34,.35,0,g,14);w.rotation.z=Math.PI/2}scene.add(g);wall(x-.45,x+.45,z-.45,z+.45)}
+function roshanTex(){return canvasTex(256,512,(c,W,H)=>{c.fillStyle='#ece0c8';c.fillRect(0,0,W,H);c.strokeStyle='rgba(150,120,80,.25)';c.lineWidth=2;for(let y=0;y<H;y+=22){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke()}
+  for(const[x,y,w,h]of[[40,60,80,150],[140,60,80,150],[70,250,120,110]]){c.fillStyle='#6b3f22';c.fillRect(x,y,w,h);c.fillStyle='#8a5a32';for(let i=0;i<h;i+=8)c.fillRect(x+4,y+i,w-8,3);for(let i=0;i<w;i+=8)c.fillRect(x+i,y+4,2,h-8)}
+  c.fillStyle='#5a3220';c.fillRect(100,H-120,56,120);c.fillStyle='#f2b632';c.beginPath();c.arc(146,H-60,4,0,7);c.fill()})}
+function buildWorld2(){const X=X2;
+  floorAt(texMat(canvasTex(256,256,(c,W,H)=>{c.fillStyle='#d9b98a';c.fillRect(0,0,W,H);for(let i=0;i<900;i++){c.fillStyle=Math.random()<.5?'#cfae7d':'#e3c597';c.fillRect(Math.random()*W,Math.random()*H,3,3)}},[16,36])),140,320,X,-75,-.03);
+  // ---- WARD z[22,-60] ----
+  floorAt(texMat(canvasTex(128,128,(c,W,H)=>{c.fillStyle='#e9f0ee';c.fillRect(0,0,W,H);c.strokeStyle='#c9d6d2';c.lineWidth=3;for(let i=0;i<=2;i++){c.beginPath();c.moveTo(i*64,0);c.lineTo(i*64,H);c.moveTo(0,i*64);c.lineTo(W,i*64);c.stroke()}},[10,41])),20,82,X,-19);
+  const WW=texMat(canvasTex(128,128,(c,W,H)=>{c.fillStyle='#dfe8e4';c.fillRect(0,0,W,H);c.fillStyle='#c9d6d2';c.fillRect(0,H-22,W,22);c.fillStyle='#4f9a86';c.fillRect(0,H-26,W,5)}));
+  solid(20,3.4,.5,WW,X,1.7,22);solid(.5,3.4,82,WW,X-10,1.7,-19);solid(.5,3.4,82,WW,X+10,1.7,-19);
+  solid(8,3.4,.4,WW,X-6,1.7,10);solid(8,3.4,.4,WW,X+6,1.7,10);
+  solid(2.4,.7,4.4,'#c9d6dc',X-5,.35,17);box(2.2,.3,4,'#fdfdfd',X-5,.85,17);box(2.2,.25,2.4,'#a9cfe0',X-5,1.05,16.2);box(1,.3,.7,'#fdfdfd',X-5,1.1,18.6);box(2.4,1.3,.2,'#c9d6dc',X-5,1,19.3);
+  solid(1,.8,1,'#b9c7cd',X-2.5,.4,18);
+  cyl(.04,.04,2.4,'#8b7f73',X-7.2,1.2,18.5,scene,6);box(.4,.6,.15,'#bfe6f8',X-7.2,2.2,18.5);
+  box(3,1.6,.1,new THREE.MeshBasicMaterial({color:'#bfe6f8'}),X+5,2,21.7,scene,false);
+  sign('جناح الطب النفسي',6,1,'#2f7a4a','#ffffff',X,2.9,10.25,0);
+  [-2,-14,-26,-38].forEach((z,i)=>[-1,1].forEach(sd=>{box(.12,2.6,1.6,'#6b8f86',X+sd*9.7,1.3,z);sign('غرفة '+(i*2+(sd>0?2:1)+6),1.6,.5,'#ffffff','#1e1a2b',X+sd*9.6,2.9,z,sd<0?Math.PI/2:-Math.PI/2)}));
+  sign('ممنوع الهروب',4,.8,'#c7362f','#ffffff',X,3,-8,0);sign('الهدوء من فضلك',4,.8,'#2f7a4a','#ffffff',X,3,-32,0);
+  solid(4,1.1,1.4,'#9fb3bc',X+6.5,.55,-22);sign('محطة التمريض',3,.6,'#4f9a86','#ffffff',X+6.5,1.75,-21.25,0);
+  wheelchairProp(X-7.5,-10,.4);wheelchairProp(X+7.8,-44,-.6);wheelchairProp(X-7.6,-30,1);
+  solid(7,3.4,.5,WW,X-6.5,1.7,-60);solid(7,3.4,.5,WW,X+6.5,1.7,-60);sign('خروج · EXIT',3,.7,'#2f7a4a','#ffffff',X,3.1,-59.7,0,true);
+  gate('ward',X-3,X+3,-60);
+  // ---- ALLEY z[-60,-130] ----
+  floorAt(texMat(canvasTex(128,128,(c,W,H)=>{c.fillStyle='#cdb48b';c.fillRect(0,0,W,H);c.strokeStyle='#b59a73';c.lineWidth=3;for(let j=0;j<4;j++)for(let i=-1;i<4;i++)c.strokeRect(i*32+(j%2)*16,j*32,32,32)},[4,18])),16,70,X,-95);
+  const rt=roshanTex();
+  for(let i=0;i<6;i++){const z=-66-i*11.5;[-1,1].forEach(sd=>{const h=R(8,13),fac=texMat(rt,{color:rnd(['#ffffff','#f4ead6','#efe2cc'])}),side=mat('#d8c8aa');
+    box(8,h,11,[sd<0?fac:side,sd<0?side:fac,mat('#c9b48e'),side,side,side],X+sd*12,h/2,z);wall(X+sd*12-4,X+sd*12+4,z-5.5,z+5.5);
+    box(.9,2.6,2.4,'#6b3f22',X+sd*7.7,R(4.5,6),z+R(-2,2))})}
+  wall(X-8.6,X-8,-130,-60);wall(X+8,X+8.6,-130,-60);
+  for(let z=-70;z>-128;z-=12)for(const sd of[-1,1]){box(.3,.45,.3,'#f2b632',X+sd*7.3,4.2,z);lampGlows.push(glowSprite(X+sd*7.3,4.1,z,3.4))}
+  for(const[x,z]of[[X+6.6,-93],[X-6.6,-110]]){cyl(.6,.5,.75,'#5a5a60',x,.38,z);cyl(.62,.62,.08,'#3a3a40',x,.78,z);wall(x-.6,x+.6,z-.6,z+.6)}
+  sign('حارة أم غازي',4,.8,'#6b3f22','#fdf4e3',X+7.95,3.2,-70,-Math.PI/2);
+  kiosk(X-6.2,-66,Math.PI/2);
+  for(const[x,z]of[[X-6.5,-78],[X+6.5,-84],[X-6.8,-100],[X+6.6,-112],[X-6.4,-122]])crateSpots.push([x,z,Math.random()<.5?'bin':'crate']);
+  solid(5,3,.5,'#cbb38c',X-5.5,1.5,-130);solid(5,3,.5,'#cbb38c',X+5.5,1.5,-130);
+  gate('alley',X-3,X+3,-130);
+  // ---- FEAST z[-130,-172] ----
+  floorAt(texMat(canvasTex(128,128,(c,W,H)=>{c.fillStyle='#8a2c25';c.fillRect(0,0,W,H);for(let j=0;j<4;j++)for(let i=0;i<4;i++){c.fillStyle=(i+j)%2?'#f2b632':'#fdf4e3';c.beginPath();c.moveTo(i*32+16,j*32+4);c.lineTo(i*32+28,j*32+16);c.lineTo(i*32+16,j*32+28);c.lineTo(i*32+4,j*32+16);c.fill()}},[6,9])),28,42,X,-151);
+  const FW=texMat(canvasTex(128,128,(c,W,H)=>{c.fillStyle='#f3e4c6';c.fillRect(0,0,W,H);for(let i=0;i<8;i++){c.fillStyle=i%2?'#c7362f':'#1e1a2b';c.beginPath();c.moveTo(i*16,70);c.lineTo(i*16+8,58);c.lineTo(i*16+16,70);c.lineTo(i*16+8,82);c.fill()}c.fillStyle='#c7362f';c.fillRect(0,52,W,4);c.fillRect(0,84,W,4)},[6,1]));
+  solid(28,4,.5,FW,X,2,-172);solid(.5,4,42,FW,X-14,2,-151);solid(.5,4,42,FW,X+14,2,-151);solid(6,4,.5,FW,X-11,2,-130);solid(6,4,.5,FW,X+11,2,-130);
+  for(const sd of[-1,1]){box(1.2,.55,38,'#a22a24',X+sd*13.1,.28,-151);box(.35,.8,38,'#7a2a26',X+sd*13.6,.7,-151)}
+  floorAt(mat('#c7362f'),9,5,X,-150,.04);
+  cyl(2.3,2.3,.2,'#c9ccd2',X,.25,-150,scene,24);const rice=sph(1,'#f2c14e',X,.45,-150);rice.scale.set(2,.55,2);sph(.62,'#8a4a22',X,1.05,-150);
+  for(let i=0;i<14;i++)sph(.09,i%2?'#2f7a4a':'#6b2d16',X+Math.cos(i)*R(.6,1.6),.75,-150+Math.sin(i)*R(.6,1.6));
+  wall(X-2.3,X+2.3,-152.3,-147.7);
+  for(let i=0;i<6;i++){cyl(.35,.3,.12,'#fdfdfd',X-3.6+i*1.45,.1,-147.2);cyl(.35,.3,.12,'#fdfdfd',X-3.6+i*1.45,.1,-152.8)}
+  for(const x of[X-8,X,X+8])for(const z of[-138,-160]){box(.35,.5,.35,'#f2b632',x,3.4,z);lampGlows.push(glowSprite(x,3.3,z,4))}
+  sign('العزيمة',4,.9,'#c7362f','#fdf4e3',X,3.1,-171.7,0);
+  for(const[x,z]of[[X-11,-140],[X+11,-164],[X+10.5,-138],[X-10.5,-166]])crateSpots.push([x,z,'crate']);
+}
 function setClock(txt){const t=clockMesh.material.map,c=t.image,x=c.getContext('2d');x.fillStyle='#fdf4e3';x.fillRect(0,0,c.width,c.height);x.fillStyle='#1e1a2b';x.font=`${Math.round(c.height*.6)}px Lalezar, system-ui`;x.textAlign='center';x.textBaseline='middle';x.fillText(txt,c.width/2,c.height/2+4);t.needsUpdate=true}
 const kiosks=[];
 function kiosk(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=ry;scene.add(g);
@@ -383,7 +472,7 @@ function kiosk(x,z,ry){const g=new THREE.Group();g.position.set(x,0,z);g.rotatio
 
 // ================= Characters =================
 const vestTex=canvasTex(128,64,(c,W,H)=>{c.fillStyle='#1c1d22';c.fillRect(0,0,W,H);c.fillStyle='rgba(255,255,255,.1)';for(let y=0;y<H;y+=3)for(let x=0;x<W;x+=3)c.fillRect(x,y,1,1);c.fillStyle='#c9ccd2';c.fillRect(0,14,W,5);c.fillRect(0,46,W,5);c.fillStyle='#e9e9e9';c.beginPath();c.arc(40,30,6,0,7);c.fill();c.fillStyle='#2f7a4a';c.beginPath();c.arc(40,30,3,0,7);c.fill();c.fillStyle='#6b5a2a';c.fillRect(60,0,8,H)});
-const pjTex=stripes('#9cc9e6','#5f8fae',6),rashTex=stripes('#eef2f3','#8cc4d6',7);
+const gownTex=canvasTex(64,64,(c,W,H)=>{c.fillStyle='#a9cfe0';c.fillRect(0,0,W,H);c.fillStyle='#6f9fb8';for(let y=4;y<H;y+=10)for(let x=(y/10%2)*5+3;x<W;x+=10){c.beginPath();c.arc(x,y,1.6,0,7);c.fill()}}),pjTex=stripes('#9cc9e6','#5f8fae',6),rashTex=stripes('#eef2f3','#8cc4d6',7);
 function makePerson(o){
   const g=new THREE.Group(),mats=[];g.rotation.order='YXZ';
   const M=c=>{const m=c&&c.isTexture?new THREE.MeshLambertMaterial({map:c}):new THREE.MeshLambertMaterial({color:c});mats.push(m);return m};
@@ -420,13 +509,11 @@ function animP(p,speed,dt){
 const player={x:0,z:26,y:0,vy:0,yaw:Math.PI,hp:10,maxHp:10,inv:0,model:null,cd:0,speedT:0,roll:0,rollCd:0,rdx:0,rdz:0,land:0};
 let weapons={},wIdx=0,punches=0,outfit='pajamas';
 let wallet=store.get('wallet',0),up=Object.assign({hp:0,dmg:0,spd:0,mag:0},store.get('up',{}));
-const dmgMul=()=>1+up.dmg*.35,spdMul=()=>1+up.spd*.12,magR=()=>3.5+up.mag*5;
-const WEAP={dates:{ar:'تمر',en:'dates',dmg:1,cd:.3,spd:26,col:'#6b2d16',r:.17},onion:{ar:'بصل',en:'onions',dmg:3,cd:.42,spd:24,col:'#b05a9a',r:.27},chicken:{ar:'دجاج',en:'chicken',dmg:7,cd:.85,spd:19,col:'#f2c4b0',r:.36,aoe:3.4}};
-function buildPlayer(){
-  if(player.model)scene.remove(player.model.g);
-  const pj=outfit==='pajamas';
-  player.model=makePerson({face:'abu',bodyTex:pj?pjTex:vestTex,pants:pj?'#7ab3d6':'#2a2a33',sleeve:pj?'#9cc9e6':'#6b5a2a',skin:'#4a2f22',belly:true,headSize:1.12});
-}
+const dmgMul=()=>(1+up.dmg*.35)*(fazT>0?2:1),spdMul=()=>1+up.spd*.12,magR=()=>3.5+up.mag*5;
+const WEAP={dates:{ar:'تمر',en:'dates',dmg:1,cd:.3,spd:26,col:'#6b2d16',r:.17},slipper:{ar:'نعال',en:'slipper',dmg:2.5,cd:.5,spd:22,boom:true},onion:{ar:'بصل',en:'onions',dmg:3,cd:.42,spd:24,col:'#b05a9a',r:.27},chicken:{ar:'دجاج',en:'chicken',dmg:7,cd:.85,spd:19,col:'#f2c4b0',r:.36,aoe:3.4}};
+const LOOKS={pajamas:[pjTex,'#7ab3d6','#9cc9e6'],vest:[vestTex,'#2a2a33','#6b5a2a'],gown:[gownTex,'#c9d6dc','#a9cfe0']};
+function buildPlayer(){if(player.model)scene.remove(player.model.g);const L=LOOKS[outfit]||LOOKS.vest;
+  player.model=makePerson({face:'abu',bodyTex:L[0],pants:L[1],sleeve:L[2],skin:'#4a2f22',belly:true,headSize:1.12})}
 const stats={dmgTaken:0,kills:0,time:0,maxCombo:0};
 
 // ================= Entities =================
@@ -435,35 +522,55 @@ const EN={
   kid:{face:'kid',body:'#f4f1ea',robe:true,scale:.62,hp:2,spd:3.4,dmg:1,say:['أشتي مصروف!','بابا زلط!','أبي ريال!'],bye:['شكراً يا بوي!','تمر!','يمّي!']},
   borrower:{face:'borrower',body:'#f4f1ea',robe:true,scale:1,hp:5,spd:2.7,dmg:1,ranged:true,say:['سلّفني ميتين!','بس لآخر الشهر!','أنا أخوك!'],bye:['خلاص ما أبي!','طيب طيب!']},
   greeter:{face:'greeter',body:'#e8e4dc',robe:true,scale:1.08,hp:9,spd:2,dmg:2,say:['كيف حالك؟ كيف الأهل؟','كيف العيال؟ كيف الجيران؟','تعال أحضنك!'],bye:['...وكيف البقرة؟','مع السلامة!']},
-  customer:{face:'customer',body:'#3a2a4a',robe:true,scale:1,hp:6,spd:2.5,dmg:1,charger:true,say:['فيه خصم؟','هذا بكم؟','أبي المدير!'],bye:['مابش خصم؟ طيب','بشتكي!']},
-  rat:{rat:true,hp:2,spd:5,dmg:1,say:['سيييي'],bye:['سيييي!']},
+  customer:{face:'customer',body:'#3a2a4a',robe:true,scale:1,hp:6,spd:2.5,dmg:1,charger:true,cart:true,say:['فيه خصم؟','هذا بكم؟','أبي المدير!'],bye:['مابش خصم؟ طيب','بشتكي!']},
+  rat:{animal:'rat',rat:true,hp:2,spd:5,dmg:1,say:['سيييي'],bye:['سيييي!']},
+  nurse:{face:'nurse',body:'#f4f1ea',pants:'#f4f1ea',scale:1,hp:5,spd:2.6,dmg:1,ranged:true,shot:'pill',shotSay:'وقت الحبة!',say:['وقت الحبة يا حبيبي!','غرفة سبعة تنتظرك!','لا تشرد!'],bye:['تزحلقت!','ووووه!']},
+  orderly:{face:'orderly',body:'#4f9a86',pants:'#4f9a86',scale:1.12,hp:8,spd:2.4,dmg:2,charger:true,chargeSay:'الجاكيت جاهز!',say:['البس الجاكيت!','مقاسك تمام!'],bye:['آه ظهري!','زحلقة!']},
+  cat:{animal:'cat',rat:true,hp:2,spd:5.6,dmg:1,say:['مياو'],bye:['مياو!']},
+  goat:{animal:'goat',hp:6,spd:3,dmg:1,charger:true,chargeSay:'مااااع!',say:['مااااع'],bye:['ماع!']},
+  eidkid:{face:'kid',body:'#fdfdfd',robe:true,scale:.62,hp:3,spd:3.6,dmg:1,say:['عيديتي!','عمو عيدية!'],bye:['تمر بدل عيدية؟','شكراً عمو!']},
 };
 const ringGeo=new THREE.RingGeometry(.7,1,28);
 function spawnEnemy(type,x,z){
   const d=EN[type];let model;
-  if(d.rat){const g=new THREE.Group();const mats=[new THREE.MeshLambertMaterial({color:'#7d7068'}),new THREE.MeshLambertMaterial({color:'#c9a0a0'})];
-    const b=add(new THREE.SphereGeometry(.35,12,8),mats[0],0,.3,0,g);b.scale.set(1,.7,1.6);add(new THREE.SphereGeometry(.2,10,8),mats[0],0,.36,.55,g);add(new THREE.SphereGeometry(.08,6,6),mats[1],.14,.55,.5,g);add(new THREE.SphereGeometry(.08,6,6),mats[1],-.14,.55,.5,g);
-    add(new THREE.SphereGeometry(.04,6,6),'#111',.09,.42,.72,g);add(new THREE.SphereGeometry(.04,6,6),'#111',-.09,.42,.72,g);
-    const tl=add(new THREE.CylinderGeometry(.03,.02,1,5),mats[1],0,.25,-.8,g);tl.rotation.x=1.3;scene.add(g);model={g,rat:true,mats,flash:0}}
-  else{model=makePerson({face:d.face,body:d.body,robe:d.robe,scale:d.scale,skin:'#b98a62',sleeve:d.body});
-    if(d.charger){const cart=new THREE.Group();box(.8,.5,.6,'#c9ccd2',0,.8,0,cart);for(const[sx,sz]of[[-.35,-.25],[.35,-.25],[-.35,.25],[.35,.25]])sph(.08,'#111',sx,.1,sz,cart);box(.05,.6,.05,'#c9ccd2',0,.5,0,cart);box(.4,.3,.3,'#f2b632',.1,1.15,0,cart);cart.position.z=.9;model.g.add(cart)}}
+  if(d.animal)model=animalModel(d.animal);
+  else{model=makePerson({face:d.face,body:d.body,robe:d.robe,scale:d.scale,skin:'#b98a62',sleeve:d.body,pants:d.pants});
+    if(d.cart){const cart=new THREE.Group();box(.8,.5,.6,'#c9ccd2',0,.8,0,cart);for(const[sx,sz]of[[-.35,-.25],[.35,-.25],[-.35,.25],[.35,.25]])sph(.08,'#111',sx,.1,sz,cart);box(.05,.6,.05,'#c9ccd2',0,.5,0,cart);box(.4,.3,.3,'#f2b632',.1,1.15,0,cart);cart.position.z=.9;model.g.add(cart)}}
   const ring=new THREE.Mesh(ringGeo,new THREE.MeshBasicMaterial({color:'#ff3b2f',transparent:true,opacity:0,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.y=.06;model.g.add(ring);
   model.g.position.set(x,0,z);burst(x,.5,z,10,'#e8dcc4',3);
-  const e={type,d,m:model,x,z,hp:d.hp,max:d.hp,cd:R(.8,1.8),wind:0,said:false,kx:0,kz:0,stun:0,ring,rcd:R(2,4),dash:0};enemies.push(e);return e;
+  const e={type,d,m:model,x,z,hp:d.hp,max:d.hp,cd:R(.8,1.8),wind:0,said:false,kx:0,kz:0,stun:0,ring,rcd:R(2,4),dash:0};
+  if(!['kid','eidkid'].includes(type)&&Math.random()<.14){e.elite=true;e.hp*=2.2;e.max=e.hp;model.g.scale.multiplyScalar(1.2);const gl=glowSprite(0,d.rat?.5:1.3,0,d.rat?2.2:3.6,model.g);gl.material.color.set('#ffcc55')}
+  enemies.push(e);return e;
 }
+function animalModel(kind){const g=new THREE.Group(),mats=[];const M=c=>{const m=new THREE.MeshLambertMaterial({color:c});mats.push(m);return m};
+  if(kind==='rat'){const fur=M('#7d7068'),pink=M('#c9a0a0');const b=add(new THREE.SphereGeometry(.35,12,8),fur,0,.3,0,g);b.scale.set(1,.7,1.6);add(new THREE.SphereGeometry(.2,10,8),fur,0,.36,.55,g);add(new THREE.SphereGeometry(.08,6,6),pink,.14,.55,.5,g);add(new THREE.SphereGeometry(.08,6,6),pink,-.14,.55,.5,g);
+    add(new THREE.SphereGeometry(.04,6,6),'#111',.09,.42,.72,g);add(new THREE.SphereGeometry(.04,6,6),'#111',-.09,.42,.72,g);const tl=add(new THREE.CylinderGeometry(.03,.02,1,5),pink,0,.25,-.8,g);tl.rotation.x=1.3}
+  else if(kind==='cat'){const fur=M('#e0913a'),lt=M('#f4d2a8');const b=add(new THREE.SphereGeometry(.34,12,8),fur,0,.45,0,g);b.scale.set(.9,.85,1.5);add(new THREE.SphereGeometry(.26,12,8),fur,0,.7,.5,g);add(new THREE.SphereGeometry(.12,8,6),lt,0,.62,.7,g);
+    for(const sd of[-1,1])add(new THREE.ConeGeometry(.09,.2,4),fur,sd*.13,.95,.48,g);add(new THREE.SphereGeometry(.035,6,6),'#2a6a2a',.09,.74,.73,g);add(new THREE.SphereGeometry(.035,6,6),'#2a6a2a',-.09,.74,.73,g);
+    for(const[sx,sz]of[[-.15,.3],[.15,.3],[-.15,-.3],[.15,-.3]])add(new THREE.CylinderGeometry(.06,.05,.4,6),fur,sx,.2,sz,g);const tl=add(new THREE.CylinderGeometry(.04,.03,.7,6),fur,0,.75,-.55,g);tl.rotation.x=-.5}
+  else{const w=M('#ece6da'),gr=M('#8b7f73');add(new THREE.BoxGeometry(.7,.6,1.2),w,0,.85,0,g);for(const[sx,sz]of[[-.25,.45],[.25,.45],[-.25,-.45],[.25,-.45]])add(new THREE.CylinderGeometry(.07,.06,.6,6),gr,sx,.3,sz,g);
+    add(new THREE.BoxGeometry(.35,.4,.5),w,0,1.25,.7,g);for(const sd of[-1,1]){const hn=add(new THREE.ConeGeometry(.06,.4,5),gr,sd*.12,1.55,.6,g);hn.rotation.x=-.6}add(new THREE.BoxGeometry(.12,.25,.08),gr,0,.98,.92,g);
+    add(new THREE.SphereGeometry(.04,6,6),'#111',.15,1.32,.92,g);add(new THREE.SphereGeometry(.04,6,6),'#111',-.15,1.32,.92,g)}
+  scene.add(g);return{g,animal:true,mats,flash:0}}
 function sitPose(m,on){m.sitting=on;if(!on){m.hip.position.y=.92;m.legs.forEach(l=>l.rotation.x=0)}}
 function makeBoss(kind,x,z){
+  const B={ahmad:{hp:48,name:'عم أحمد الكاشير · Uncle Ahmad',lines:['فين العشرة ريال؟!','التمر مو لك!','أنا الكاشير هنا!','فاتورة! فاتورة!']},
+    rash:{hp:54,name:'رشيدة · Rasheedeh',lines:['فين كايديه؟','بس كمسه دقيقه!','شاهي بارد مافي كويس!','كايديه دهين ازي!','تيليفون كايديه!']},
+    doctor:{hp:56,name:'الدكتور · The Doctor',lines:['احكي لي عن طفولتك!','وقت الحبة الزرقا!','كيف علاقتك بالسلتة؟','الجاكيت مقاسك!']},
+    ghazi:{hp:72,name:'أم غازي · Umm Ghazi',lines:['يا مندي!','بس عضة وحدة!','ريحتك تجنن!','تعال يا حبة الرز!'],hr:2.6,hy:6.6,ty:3.4,r:1.4},
+    saleh:{hp:64,name:'العم صالح · Uncle Saleh',lines:['اللحمة حقي!','احترم الكبير!','ابعد يا مسؤول الكراتين!','أنا عمك!']}}[kind];
   let model;
   if(kind==='ahmad')model=makePerson({face:'ahmad',body:'#b9bec7',robe:true,belly:true,skin:'#4a2e20',scale:1.4,headSize:1.05});
-  else{model=makePerson({face:'rash',bodyTex:rashTex,belly:true,pants:'#1e1e24',skin:'#5a3a28',sleeve:'#eef2f3',scale:1.32,headSize:1.05});
+  else if(kind==='rash'){model=makePerson({face:'rash',bodyTex:rashTex,belly:true,pants:'#1e1e24',skin:'#5a3a28',sleeve:'#eef2f3',scale:1.32,headSize:1.05});
     const chair=new THREE.Group();box(1.3,.18,1.2,'#2b2b33',0,.62,0,chair);box(1.3,1.4,.15,'#2b2b33',0,1.4,-.6,chair);cyl(.06,.06,.5,'#5a5a60',0,.35,0,chair);
     for(let i=0;i<5;i++){const a=i/5*Math.PI*2;box(.7,.06,.08,'#5a5a60',Math.cos(a)*.35,.12,Math.sin(a)*.35,chair).rotation.y=-a;sph(.08,'#111',Math.cos(a)*.65,.08,Math.sin(a)*.65,chair)}
     model.g.add(chair);model.chair=chair;sitPose(model,true)}
+  else if(kind==='doctor'){model=makePerson({face:'doctor',body:'#fdfdfd',pants:'#2a2a33',sleeve:'#fdfdfd',skin:'#c99a72',scale:1.35});box(.35,.45,.05,'#8a5a32',0,-.42,.1,model.arms[0].E)}
+  else if(kind==='ghazi'){model=makePerson({face:'ghazi',body:'#2f7a4a',robe:true,belly:true,skin:'#8a5a3c',scale:2.1,headSize:1.15});const fk=new THREE.Group();box(.07,1.1,.07,'#c9ccd2',0,-.85,0,fk);for(const tx of[-.08,0,.08])box(.03,.25,.03,'#c9ccd2',tx,-1.5,0,fk);model.arms[1].E.add(fk)}
+  else{model=makePerson({face:'saleh',body:'#f4f1ea',robe:true,belly:true,skin:'#b98a62',scale:1.42});box(1,1.55,.08,'#3a2a1a',0,.12,-.36,model.chest);box(.06,1.55,.1,'#f2b632',-.48,.12,-.32,model.chest);box(.06,1.55,.1,'#f2b632',.48,.12,-.32,model.chest)}
   model.g.position.set(x,0,z);
-  boss={kind,m:model,x,z,hp:kind==='ahmad'?48:54,max:kind==='ahmad'?48:54,cd:2,cd2:6,talk:1.5,dash:0,dvx:0,dvz:0,phase:1,
-    name:kind==='ahmad'?'عم أحمد الكاشير · Uncle Ahmad':'رشيدة · Rasheedeh',
-    lines:kind==='ahmad'?['فين العشرة ريال؟!','التمر مو لك!','أنا الكاشير هنا!','فاتورة! فاتورة!']:['فين كايديه؟','بس كمسه دقيقه!','شاهي بارد مافي كويس!','كايديه دهين ازي!','تيليفون كايديه!']};
-  $('bossBox').hidden=false;$('bossName').textContent=boss.name;bossUI();sfx.boss();shake=.6;
+  boss={kind,m:model,x,z,hp:B.hp,max:B.hp,cd:2,cd2:6,cd3:5,talk:1.5,dash:0,dvx:0,dvz:0,phase:1,name:B.name,lines:B.lines,hr:B.hr||1.6,hy:B.hy||4.4,ty:B.ty||2.1,r:B.r||.9,slam:null,pull:0};
+  $('bossBox').hidden=false;$('bossName').textContent=boss.name;bossUI();sfx.boss();shake=.6;MUS.level=2;
 }
 function bossUI(){$('bossBar').style.width=boss?(Math.max(0,boss.hp)/boss.max*100)+'%':'0%'}
 
@@ -479,7 +586,8 @@ function addPickup(type,x,z){
     else if(type==='chicken'){box(1.1,.4,.4,'#5a5a60',0,0,0,item);sph(.28,'#f2c4b0',.7,0,0,item)}
     else if(type==='ammo'){box(.6,.5,.6,'#c9a46a',0,0,0,item);sph(.18,'#b05a9a',0,.35,0,item)}
     else if(type==='tea'){cyl(.22,.22,.7,'#c7362f',0,0,0,item);cyl(.24,.24,.15,'#e8e4dc',0,.42,0,item)}
-    else if(type==='punch'){box(.5,.45,.45,'#b98a62',0,0,0,item);box(.52,.2,.47,'#c7362f',0,-.3,0,item)}}
+    else if(type==='punch'){box(.5,.45,.45,'#b98a62',0,0,0,item);box(.52,.2,.47,'#c7362f',0,-.3,0,item)}
+    else if(type==='slipper'){box(.4,.06,.9,'#2f6fb3',0,0,0,item);box(.42,.1,.12,'#f2b632',0,.06,.15,item)}}
   const p={type,g,item,x,z,t:R(0,6)};pickups.push(p);return p;
 }
 const partGeo=new THREE.BoxGeometry(.14,.14,.14),partMats={};
@@ -500,14 +608,14 @@ let toastT=null;function toast(ar,en){const t=$('toast');t.innerHTML=ar+(en?'<sm
 function titleCard(ar,en){const d=document.createElement('div');d.className='title';d.innerHTML=`<b>${ar}</b><span>${en}</span>`;$('titleBox').appendChild(d);setTimeout(()=>d.remove(),3100)}
 
 // ================= Dialogue =================
-const NAMES={abu:'أبو نواف · Abu Nawaf',umm:'أم نواف · Umm Nawaf',woman:'امرأة في الشارع · A lady',ahmad:'عم أحمد الكاشير · Uncle Ahmad',rash:'رشيدة · Rasheedeh',vendor:'أبو سعد · Abu Saad',tip:'كيف تلعب · How to play'};
+const NAMES={abu:'أبو نواف · Abu Nawaf',umm:'أم نواف · Umm Nawaf',woman:'امرأة في الشارع · A lady',ahmad:'عم أحمد الكاشير · Uncle Ahmad',rash:'رشيدة · Rasheedeh',vendor:'أبو سعد · Abu Saad',doctor:'الدكتور · The doctor',ghazi:'أم غازي · Umm Ghazi',saleh:'العم صالح · Uncle Saleh',tip:'كيف تلعب · How to play'};
 let dq=[],di=0,dDone=null,mode='menu';
 function talk(lines,done){mode='talk';dq=lines;di=0;dDone=done;$('dlg').hidden=false;showUI(false);line()}
 function line(){const[who,ar,en]=dq[di];$('dname').textContent=NAMES[who]||'';$('dar').textContent=ar;$('den').textContent=en;$('dnext').textContent=di===dq.length-1?'Go!':'Next';portrait(who);sfx.blip()}
 function next(){if(mode!=='talk')return;di++;if(di>=dq.length){$('dlg').hidden=true;mode='play';showUI(true);last=performance.now();const d=dDone;dDone=null;d&&d()}else line()}
 $('dlg').addEventListener('click',e=>{if(e.target.id==='dskip')return;next()});
 $('dskip').onclick=e=>{e.stopPropagation();di=dq.length-1;next()};
-function showUI(v){['hud','joy','btns'].forEach(id=>$(id).hidden=!v);if(v){punUI();wpnUI()}}
+function showUI(v){['hud','joy','btns'].forEach(id=>$(id).hidden=!v);if(v){punUI();wpnUI();rageUI()}}
 
 // ================= Story =================
 let step='',kills=0,killGoal=0,spawnFlags={},cp=0,cpSnap=null,objTarget=null;
@@ -521,9 +629,10 @@ function setDay(day){sky.material.map=day?SKY_DAY:SKY_EVE;sky.material.needsUpda
   amb.intensity=day?.12:.2;lampGlows.forEach(g=>g.visible=!day);sunDisc.material.color.set(day?'#fff3c4':'#ff8a5a');setClock(day?'٤:٣٠ م':'٥:٠٠ م')}
 function startSection(n,restore){
   clearSection();cp=n;
-  if(restore&&cpSnap){weapons={...cpSnap.weapons};if(weapons.dates===null)weapons.dates=Infinity;wIdx=cpSnap.wIdx||0;punches=cpSnap.punches||0;outfit=cpSnap.outfit||'vest';buildPlayer()}
+  if(restore&&cpSnap){weapons={...cpSnap.weapons};for(const k of['dates','slipper'])if(weapons[k]===null)weapons[k]=Infinity;wIdx=cpSnap.wIdx||0;punches=cpSnap.punches||0;outfit=cpSnap.outfit||'vest';buildPlayer()}
   player.maxHp=10+up.hp*3;player.hp=player.maxHp;player.inv=0;player.vy=0;player.y=0;player.roll=0;kills=0;spawnFlags={};
-  ['house','zad','exit'].forEach(closeGate);setDay(n<3);resetCrates();
+  ['house','zad','exit','ward','alley'].forEach(closeGate);setDay(n<3||n===10);resetCrates();step='';objective('','',null);rage=0;fazT=0;MUS.level=1;
+  if(n>=10){startCh2(n);camera.position.set(player.x,34,player.z+30);player.model.g.position.set(player.x,0,player.z);hpUI();coinUI();wpnUI();punUI();rageUI();return}
   if(n===0){addPickup('vest',-11.5,22.5);addPickup('dates',12.6,11.6)}
   if(n<=1){addPickup('onion',8.5,-44.6);addPickup('tea',-8,-58);addPickup('ammo',8,-80);addPickup('punch',-8,-98)}
   if(n<=2){addPickup('chicken',-15,-166.5);addPickup('punch',16,-160);addPickup('tea',-4,-144);addPickup('ammo',4,-160)}
@@ -538,6 +647,18 @@ function startSection(n,restore){
   camera.position.set(player.x,34,player.z+30);player.model.g.position.set(player.x,0,player.z);
   hpUI();coinUI();wpnUI();punUI();
 }
+function startCh2(n){const X=X2;
+  if(n<=10){addPickup('slipper',X-2.5,18);addPickup('onion',X+7,-24);addPickup('tea',X-6,-36)}
+  if(n<=11){addPickup('chicken',X+5,-96);addPickup('punch',X-5,-112);addPickup('tea',X+4,-78)}
+  if(n<=12){addPickup('tea',X-10,-150);addPickup('ammo',X+10,-160);addPickup('punch',X,-142)}
+  if(n===10){player.x=X+2;player.z=16;player.yaw=Math.PI;outfit='gown';weapons={dates:Infinity};wIdx=0;punches=0;buildPlayer();Object.assign(stats,{dmgTaken:0,kills:0,time:0,maxCombo:0});snapshot();
+    titleCard('الفصل الثاني','Chapter 2 · The great escape');
+    setTimeout(()=>talk(STORY2.intro,()=>{step='slipper';objective('خذ نعالك من جنب السرير','Grab your slipper by the bed',{x:X-2.5,z:18})}),1300)}
+  else if(n===11){openGate('ward');player.x=X;player.z=-64;player.yaw=Math.PI;snapshot();titleCard('حارة أم غازي','Umm Ghazi\'s alley');
+    setTimeout(()=>talk(STORY2.alley,()=>{step='alley';killGoal=7;objTarget={x:X,z:-126};killUI('عدّي بساس وتيوس أم غازي','Get past the cats and goats');spawnWave('alley0')}),1000)}
+  else{openGate('ward');openGate('alley');player.x=X;player.z=-134;player.yaw=Math.PI;snapshot();titleCard('العزيمة','The family feast');
+    setTimeout(()=>talk(STORY2.feast,()=>{step='feast';killGoal=6;objTarget={x:X,z:-156};killUI('عيّد العيال','Hand out eidiya to the kids');spawnWave('feast0')}),1000)}
+}
 function spawnWave(id){
   if(spawnFlags[id])return;spawnFlags[id]=true;
   ({kids:[['kid',-3,6],['kid',3,5],['kid',0,2]],
@@ -545,7 +666,12 @@ function spawnWave(id){
     street1:[['borrower',-4,-52],['greeter',3,-56],['borrower',6,-60]],
     street2:[['borrower',-5,-88],['greeter',5,-92],['borrower',0,-96]],
     zad0:[['rat',-6,-136],['rat',4,-140],['customer',0,-144],['rat',-3,-148]],
-    zad1:[['customer',-8,-158],['rat',6,-160],['customer',8,-150],['rat',-10,-145],['rat',0,-162]]}[id]).forEach(([tp,x,z])=>spawnEnemy(tp,x,z));
+    zad1:[['customer',-8,-158],['rat',6,-160],['customer',8,-150],['rat',-10,-145],['rat',0,-162]],
+    ward0:[['nurse',X2-4,-8],['orderly',X2+4,-12],['nurse',X2,-16]],
+    ward1:[['orderly',X2-5,-30],['nurse',X2+5,-32],['nurse',X2-2,-38],['orderly',X2+3,-40]],
+    alley0:[['cat',X2-3,-74],['cat',X2+3,-76],['goat',X2,-82]],
+    alley1:[['goat',X2-4,-96],['cat',X2+4,-98],['cat',X2,-102],['goat',X2+3,-106]],
+    feast0:[['eidkid',X2-6,-140],['eidkid',X2+6,-142],['cat',X2,-160],['eidkid',X2-3,-162],['eidkid',X2+4,-162],['cat',X2+8,-150]]}[id]).forEach(([tp,x,z])=>spawnEnemy(tp,x,z));
 }
 function rashPhase(){talk(STORY.rash,()=>{step='rash';objective('طلّع رشيدة من زاد الخير','Get Rasheedeh out of Zad Al Khair',null);makeBoss('rash',-2,-160)})}
 function onKill(){
@@ -553,13 +679,21 @@ function onKill(){
   if(step==='kids'){killUI('أكّل العيال تمر','Give the kids dates');if(kills>=killGoal){step='';talk(STORY.kidsDone,()=>{openGate('house');step='toStreet';objective('روح زاد الخير','Head to Zad Al Khair',{x:0,z:-2});toast('الباب انفتح!','The door is open')})}}
   else if(step==='street'){killUI('عدّي جماعة السلفة','Get past the borrowers');if(kills>=killGoal){openGate('zad');step='toZad';objective('ادخل زاد الخير','Enter Zad Al Khair',{x:0,z:-121});toast('باب زاد الخير انفتح!','Zad Al Khair is open')}}
   else if(step==='zad'){killUI('نظّف المستودع','Clear the warehouse');if(kills>=3)spawnWave('zad1');if(kills>=killGoal){step='';talk(STORY.ahmadStart,()=>{step='ahmad';objective('اغلب عم أحمد','Beat Uncle Ahmad',null);makeBoss('ahmad',13,-131)})}}
+  else if(step==='ward'){killUI('اشرد من الجناح','Escape the ward');if(kills>=killGoal){step='';talk(STORY2.doctorStart,()=>{step='doctor';objective('اغلب الدكتور','Beat the doctor',null);makeBoss('doctor',X2,-50)})}}
+  else if(step==='alley'){killUI('عدّي بساس وتيوس أم غازي','Get past the cats and goats');if(kills>=killGoal){step='';talk(STORY2.ghaziStart,()=>{step='ghazi';objective('أكّل أم غازي تمر لين تشبع','Feed Umm Ghazi until she\'s full',null);makeBoss('ghazi',X2,-116)})}}
+  else if(step==='feast'){killUI('عيّد العيال','Hand out eidiya to the kids');if(kills>=killGoal){step='';talk(STORY2.salehStart,()=>{step='saleh';objective('اغلب العم صالح على اللحمة','Beat Uncle Saleh to the meat',null);makeBoss('saleh',X2,-164)})}}
 }
 function onBossDown(){
   const k=boss.kind;slowMo=1.2;burst(boss.x,2,boss.z,50,'#f2b632',10);sfx.boom();shake=1;scene.remove(boss.m.g);boss=null;$('bossBox').hidden=true;
   enemies.forEach(e=>{burst(e.x,1,e.z,8,'#f2b632');scene.remove(e.m.g)});enemies=[];shots.forEach(s=>scene.remove(s.m));shots=[];
   for(let i=0;i<10;i++)addPickup('coin',player.x+R(-3,3),player.z+R(-3,3));
-  mode='cine';setTimeout(()=>{mode='play';if(k==='ahmad')talk(STORY.ahmadWin,()=>{cp=3;setDay(false);snapshot();titleCard('وقت الإغلاق','Closing time');setTimeout(rashPhase,1000)});
-    else talk(STORY.rashWin,()=>{openGate('exit');step='exit';objective('روّح البيت من باب الخروج','Go home through the exit',{x:8,z:-170})})},1400);
+  mode='cine';setTimeout(()=>{mode='play';MUS.level=1;({
+    ahmad:()=>talk(STORY.ahmadWin,()=>{cp=3;setDay(false);snapshot();titleCard('وقت الإغلاق','Closing time');setTimeout(rashPhase,1000)}),
+    rash:()=>talk(STORY.rashWin,()=>{openGate('exit');step='exit';objective('روّح البيت من باب الخروج','Go home through the exit',{x:8,z:-170})}),
+    doctor:()=>talk(STORY2.doctorWin,()=>{openGate('ward');step='toAlley';objective('اطلع من باب الخروج','Get out through the exit',{x:X2,z:-61})}),
+    ghazi:()=>talk(STORY2.ghaziWin,()=>{openGate('alley');step='toFeast';objective('روح العزيمة','Go to the feast',{x:X2,z:-131})}),
+    saleh:()=>talk(STORY2.salehWin,()=>{step='kabsa';objective('خذ آخر قطعة لحم!','Take the last piece of meat!',{x:X2,z:-150})})
+  })[k]()},1400);
 }
 function storyTick(){
   if(step==='toStreet'&&player.z<-3){step='';startSection(1)}
@@ -567,6 +701,11 @@ function storyTick(){
   if(step==='toZad'&&player.z<-122){step='';startSection(2)}
   if(step==='zad'&&player.z<-146)spawnWave('zad1');
   if(step==='exit'&&player.z<-168.5&&Math.abs(player.x-8)<2.5){step='';talk(STORY.ending,chapterDone)}
+  if(step==='ward'&&(player.z<-24||kills>=4))spawnWave('ward1');
+  if(step==='alley'&&(player.z<-90||kills>=3))spawnWave('alley1');
+  if(step==='toAlley'&&player.z<-62){step='';startSection(11)}
+  if(step==='toFeast'&&player.z<-132){step='';startSection(12)}
+  if(step==='kabsa'&&Math.hypot(player.x-X2,player.z+150)<4.4){step='';talk(STORY2.ending,()=>chapterDone(2))}
   const nearK=mode==='play'&&!boss&&!enemies.length&&kiosks.some(k=>Math.hypot(k.x-player.x,k.z-player.z)<3.6);$('shopBtn').hidden=!nearK;
 }
 
@@ -585,7 +724,8 @@ const STORY={
   ['woman','يا عم انتبه، السيارات ما توقف لأحد.','Uncle, careful, the cars don\'t stop for anyone.'],
   ['abu','صباح الخير يا وردة! أنا مسؤول الكراتين في زاد الخير. يعني مدير تقريباً.','Good morning, rose! I\'m Head of Boxes at Zad Al Khair. Basically a manager.'],
   ['abu','ويا بوي... جماعة السلفة جايين. في بسطة الخضار بصل، أقوى من التمر!','Oh no... the borrowers are coming. The vegetable stand has onions, stronger than dates!'],
-  ['tip','كسّر البراميل والصناديق عشان الريالات والشاهي. دكان أبو سعد جنبك، اشترِ ترقيات بالريالات.','Smash bins and crates for riyals and tea. Abu Saad\'s shop is right here: spend riyals on upgrades.']],
+  ['tip','كسّر البراميل والصناديق عشان الريالات والشاهي. دكان أبو سعد جنبك، اشترِ ترقيات بالريالات.','Smash bins and crates for riyals and tea. Abu Saad\'s shop is right here: spend riyals on upgrades.'],
+  ['tip','اضرب وجمّع الغضب (الشريط الذهبي تحت الصحة). لما يمتلي اضغط "فزعة" وأبو نواف يصير عملاق!','Hits fill the gold rage bar under your health. When it\'s full, tap فزعة and Abu Nawaf turns giant!']],
  zad:[
   ['ahmad','وصل أبو نواف! متأخر ساعتين وجاي يمشي كأنه المدير!','Abu Nawaf has arrived! Two hours late and strutting like he\'s the boss!'],
   ['abu','يا عم أحمد، انت كاشير، مش مدير. اهتم بالدرج حقك.','Uncle Ahmad, you\'re a cashier, not the boss. Mind your cash drawer.'],
@@ -603,50 +743,89 @@ const STORY={
  rashWin:[['rash','طيب طيب... بكرا ازي سوباه عشان شوف كايديه.','Okay okay... tomorrow me come morning to see Qaydeh.'],['abu','بكرة الجمعة! زاد الخير مقفّل! روح بيتك يا رشيدة!','Tomorrow is Friday! Zad Al Khair is closed! Go home, Rasheedeh!'],['rash','مافي مشكله... بعد جمعه ازي، عشا هنا اكل.','No problem... after Friday me come, dinner here eat.']],
  ending:[['abu','أخيراً... البيت والسرير.','Finally... home and bed.'],['umm','أبو نواف! وين البيض؟ قلت لك جيب بيض!','Abu Nawaf! Where are the eggs? I told you to bring eggs!'],['abu','...البيض؟ يا بوووووي!','...The eggs? Oh my fatheeeer!']],
 };
+const STORY2={
+ intro:[
+  ['abu','...وين أنا؟ ليش الحيطان بيضا؟ وليش لابس فستان؟!','...Where am I? Why are the walls white? And why am I wearing a dress?!'],
+  ['doctor','هذا رداء المستشفى يا أبو نواف. زوجتك جابتك أمس... تقول إنك تصيح "البيض! البيض!" وانت نايم.','That\'s a hospital gown, Abu Nawaf. Your wife brought you in last night... she says you shout "The eggs! The eggs!" in your sleep.'],
+  ['abu','يا دكتور والله إني تمام! بس أمس كان يوم طويل... رشيدة وعم أحمد والعشرة ريال...','Doctor, I swear I\'m fine! Yesterday was just a long day... Rasheedeh, Uncle Ahmad, the ten riyals...'],
+  ['doctor','تقول إنك تمام؟ هذا أول عرض. جيبوا له الجاكيت.','You say you\'re fine? That\'s the first symptom. Bring him the jacket.'],
+  ['abu','يا بوي! لازم أشرد! وين نعالي؟','Oh no! I have to escape! Where\'s my slipper?']],
+ slipper:[['abu','نعالي! رفيق الدرب. أم نواف علّمتني كيف أرميه.','My slipper! My faithful friend. Umm Nawaf taught me how to throw it.'],
+  ['tip','النعال يرجع لك زي البوميرانج ويضرب كل اللي في طريقه، رايح وراجع. بدّل له بزر "بدّل".','The slipper flies back like a boomerang and hits everyone in its path, both ways. Switch to it with بدّل.'],
+  ['tip','اضرب وجمّع الغضب (الشريط الذهبي تحت الصحة). لما يمتلي اضغط "فزعة" وأبو نواف يصير عملاق!','Hits fill the gold rage bar under your health. When it\'s full, tap فزعة and Abu Nawaf turns giant!']],
+ doctorStart:[['doctor','وين رايح؟ الجلسة ما خلصت!','Where are you going? The session isn\'t over!'],['abu','جلستك طويلة يا دكتور! عندي دوام!','Your session is too long, doctor! I have work!'],['doctor','احكي لي عن طفولتك... وانت تتفادى الحبوب.','Tell me about your childhood... while you dodge these pills.']],
+ doctorWin:[['doctor','طيب طيب... روح. بس تعال المراجعة يوم الخميس.','Fine, fine... go. But come back for your follow-up on Thursday.'],['abu','إن شاء الله يا دكتور... (والله ما ترجع رجلي هنا)','God willing, doctor... (my feet are never coming back here)']],
+ alley:[
+  ['abu','الحمد لله طلعت... بس ليش ريحة مندي في الحارة؟','Thank God I\'m out... but why does the alley smell of mandi?'],
+  ['ghazi','أبو نواف! ريحتك ريحة مندي من آخر الحارة!','Abu Nawaf! You smell like mandi from the end of the street!'],
+  ['abu','هذا عرق يا خالة! ما تسبّحت من أمس! وهذا رداء مستشفى مش فستان!','That\'s sweat, auntie! I haven\'t showered since yesterday! And this is a hospital gown, not a dress!'],
+  ['ghazi','بساسي وتيوسي بيجيبوك لي... أم غازي جيعانة من الفجر!','My cats and goats will bring you to me... Umm Ghazi has been hungry since dawn!'],
+  ['tip','التيوس تنطح، والبساس سريعة. قاذف الدجاج عند القدور، ودكان أبو سعد في أول الحارة.','Goats charge and cats are fast. The chicken launcher is by the cooking pots, and Abu Saad\'s shop is at the start of the alley.']],
+ ghaziStart:[['ghazi','تعال يا مندي! تعال لأم غازي!','Come here, little mandi! Come to Umm Ghazi!'],['abu','أنا مش مندي! أنا مسؤول كراتين أول!','I\'m not mandi! I\'m Senior Head of Boxes!'],['tip','لما تشوف دائرة حمرا كبيرة تحتها، نط أو تدحرج بعيد!','When a big red circle appears under her, jump or roll away!']],
+ ghaziWin:[['ghazi','شبعت... تمرك حالي. بكرة جيب معك مندي حقيقي.','I\'m full... your dates are sweet. Tomorrow bring real mandi.'],['abu','بكرة أغيّر طريقي... وأغيّر اسمي.','Tomorrow I change my route... and my name.'],['saleh','أبو نواف! العزيمة بدأت والكبسة على السفرة!','Abu Nawaf! The feast has started and the kabsa is on the table!']],
+ feast:[
+  ['abu','كبسة؟! بعد يوم مثل هذا؟ ذلحين وقت الأكل!','Kabsa?! After a day like this? Now it\'s eating time!'],
+  ['saleh','ليش لابس رداء مستشفى؟ ... ما عليه. آخر قطعة لحم حقي، محجوزة من السنة الماضية.','Why are you in a hospital gown? ...Never mind. The last piece of meat is mine, reserved since last year.'],
+  ['abu','حقك؟ أنا نجيت من الدكتور ومن أم غازي! احترم المنصب يا عم صالح!','Yours? I escaped the doctor AND Umm Ghazi! Respect the title, Uncle Saleh!'],
+  ['tip','العيال يبوا عيدية أول. بعدها العم صالح.','The kids want their eidiya first. Then Uncle Saleh.']],
+ salehStart:[['saleh','اللحمة حقي! خذ عظمة!','The meat is mine! Have a bone!']],
+ salehWin:[['saleh','خذها خذها... بس لا تقول لأحد إنك غلبتني.','Take it, take it... just don\'t tell anyone you beat me.']],
+ ending:[['abu','آخر قطعة لحم! يا سلام... أحلى يوم في حياتي.','The last piece of meat! Ahh... best day of my life.'],['umm','أبو نواف...','Abu Nawaf...'],['abu','لا تقولي البيض. الله يخليك لا تقولي البيض.','Don\'t say eggs. Please, I beg you, don\'t say eggs.'],['umm','...جبت البيض؟','...Did you bring the eggs?'],['abu','يا بوووووي!','Oh my fatheeeer!']],
+};
 
 // ================= Combat =================
-let combo=0,comboT=0,shake=0,hitStop=0,slowMo=0;
+let combo=0,comboT=0,shake=0,hitStop=0,slowMo=0,rage=0,fazT=0;
 function addCombo(){combo++;comboT=2.2;stats.maxCombo=Math.max(stats.maxCombo,combo);if(combo>=3){$('combo').hidden=false;$('comboN').textContent='×'+combo}
   if(combo%10===0){say('كومبو! +'+combo/5+' ريال',player,'crit',1.2,3.6);for(let i=0;i<combo/5;i++)addPickup('coin',player.x+R(-2,2),player.z+R(-2,2))}}
 function nearestTarget(maxD=24){let best=null,bd=1e9;const fx=Math.sin(player.yaw),fz=Math.cos(player.yaw);
   const consider=(o,x,z,y,kind)=>{const dx=x-player.x,dz=z-player.z,d=Math.hypot(dx,dz);if(d>maxD)return;const dot=(dx*fx+dz*fz)/(d||1);const s=d-(dot>.2?7:0)+(kind==='crate'?6:0);if(s<bd){bd=s;best={o,x,z,y,d,kind}}};
-  enemies.forEach(e=>consider(e,e.x,e.z,e.d.rat?.35:1.4,'enemy'));if(boss)consider(boss,boss.x,boss.z,2.1,'boss');breakables.forEach(b=>consider(b,b.x,b.z,.6,'crate'));return best}
+  enemies.forEach(e=>consider(e,e.x,e.z,e.d.rat?.35:1.4,'enemy'));if(boss)consider(boss,boss.x,boss.z,boss.ty,'boss');breakables.forEach(b=>consider(b,b.x,b.z,.6,'crate'));return best}
 const tgtRing=new THREE.Mesh(new THREE.RingGeometry(.85,1.05,32),new THREE.MeshBasicMaterial({color:'#f2b632',transparent:true,opacity:.8,depthWrite:false}));tgtRing.rotation.x=-Math.PI/2;scene.add(tgtRing);
 function attack(){
   if(mode!=='play'||player.cd>0||player.roll>0)return;const tg=nearestTarget();
-  if(tg&&tg.d<2.4&&tg.kind!=='crate'){
-    player.cd=.32;player.yaw=Math.atan2(tg.x-player.x,tg.z-player.z);player.model.slapT=.25;sfx.slap();hitStop=.06;
-    const dmg=2*dmgMul();if(tg.kind==='boss')hurtBoss(dmg);else hurtEnemy(tg.o,dmg,9);say('كف!',tg.o,'',.7,3.4);return}
+  const reach=(fazT>0?3.8:2.4)+(tg&&tg.kind==='boss'?boss.hr-1.6:0);
+  if(tg&&tg.d<reach&&tg.kind!=='crate'){
+    player.cd=fazT>0?.24:.32;player.yaw=Math.atan2(tg.x-player.x,tg.z-player.z);player.model.slapT=.25;sfx.slap();hitStop=.06;
+    const dmg=2*dmgMul();
+    if(fazT>0){enemies.slice().forEach(e=>{if(Math.hypot(e.x-player.x,e.z-player.z)<3.8)hurtEnemy(e,dmg,14)});if(boss&&Math.hypot(boss.x-player.x,boss.z-player.z)<3.8+boss.hr)hurtBoss(dmg);shake=Math.max(shake,.3)}
+    else if(tg.kind==='boss')hurtBoss(dmg);else hurtEnemy(tg.o,dmg,9);say('كف!',tg.o,'',.7,3.4);return}
   const w=weaponList()[wIdx];if(!w)return;const W=WEAP[w];
-  if(w!=='dates'){if(weapons[w]<=0){toast('خلصت الذخيرة!','Out of ammo');wIdx=0;wpnUI();return}weapons[w]--}
+  if(isFinite(weapons[w])){if(weapons[w]<=0){toast('خلصت الذخيرة!','Out of ammo');wIdx=0;wpnUI();return}weapons[w]--}
   player.cd=W.cd;const sx=player.x,sy=player.y+1.75,sz=player.z;
   let dx,dy,dz;if(tg){dx=tg.x-sx;dz=tg.z-sz;dy=tg.y-sy;player.yaw=Math.atan2(dx,dz)}else{dx=Math.sin(player.yaw);dz=Math.cos(player.yaw);dy=0}
+  if(W.boom){const Lh=Math.hypot(dx,dz)||1,m=new THREE.Group();box(.34,.05,.8,'#2f6fb3',0,0,0,m);box(.36,.09,.1,'#f2b632',0,.05,.12,m);m.position.set(sx,1.4,sz);scene.add(m);
+    shots.push({m,vx:dx/Lh*W.spd,vy:0,vz:dz/Lh*W.spd,life:9,dmg:W.dmg*dmgMul(),from:'p',boom:true,age:0,back:false,hitSet:new Set(),trail:0});sfx.throw();player.model.throwT=.22;return}
   const L=Math.hypot(dx,dy,dz)||1;const m=add(new THREE.SphereGeometry(W.r,10,8),W.col,sx,sy,sz);if(w==='dates')m.scale.set(1,1,1.5);
   if(w==='chicken')add(new THREE.CylinderGeometry(.06,.06,.4,6),'#fff',0,0,-.4,m).rotation.x=Math.PI/2;
   shots.push({m,vx:dx/L*W.spd,vy:dy/L*W.spd,vz:dz/L*W.spd,life:1.6,dmg:W.dmg*dmgMul(),aoe:W.aoe||0,from:'p',trail:0});sfx.throw();wpnUI();player.model.throwT=.22;
 }
-function enemyShot(x,y,z,kind,opts={}){const tx=opts.tx??player.x,tz=opts.tz??player.z,dx=tx-x,dz=tz-z,d=Math.hypot(dx,dz)||1,spd=opts.spd||({receipt:13,coin:10,paper:11,tea:11,chair:12}[kind]);let m;
+function enemyShot(x,y,z,kind,opts={}){const tx=opts.tx??player.x,tz=opts.tz??player.z,dx=tx-x,dz=tz-z,d=Math.hypot(dx,dz)||1,spd=opts.spd||({receipt:13,coin:10,paper:11,tea:11,chair:12,pill:12,ladle:10,bone:13,dallah:10}[kind]);let m;
   if(kind==='receipt'||kind==='paper')m=box(.6,.04,.42,kind==='paper'?'#f4e9c8':'#ffffff',x,y,z);
   else if(kind==='coin'){m=cyl(.25,.25,.06,'#c9ccd2',x,y,z,scene,12);m.rotation.x=Math.PI/2}
   else if(kind==='chair'){m=new THREE.Group();box(1.2,.18,1.1,'#2b2b33',0,0,0,m);box(1.2,1.2,.14,'#2b2b33',0,.6,-.55,m);m.position.set(x,y,z);scene.add(m)}
+  else if(kind==='pill'){m=new THREE.Group();cyl(.09,.09,.18,'#2f6fb3',0,.09,0,m);cyl(.09,.09,.18,'#fdfdfd',0,-.09,0,m);m.position.set(x,y,z);scene.add(m)}
+  else if(kind==='ladle'){m=new THREE.Group();sph(.18,'#c9ccd2',0,0,0,m);box(.05,.05,.6,'#c9ccd2',0,0,.35,m);m.position.set(x,y,z);scene.add(m)}
+  else if(kind==='bone'){m=new THREE.Group();box(.6,.1,.1,'#f4f1ea',0,0,0,m);for(const sd of[-1,1]){sph(.09,'#f4f1ea',sd*.32,.06,0,m);sph(.09,'#f4f1ea',sd*.32,-.06,0,m)}m.position.set(x,y,z);scene.add(m)}
+  else if(kind==='dallah'){m=new THREE.Group();cyl(.15,.22,.4,'#f2b632',0,0,0,m);cyl(.03,.05,.3,'#f2b632',.2,.1,0,m).rotation.z=-1;sph(.07,'#f2b632',0,.26,0,m);m.position.set(x,y,z);scene.add(m)}
   else m=cyl(.12,.1,.3,'#f2d6a8',x,y,z);
   const vx=opts.dir?opts.dir[0]*spd:dx/d*spd,vz=opts.dir?opts.dir[1]*spd:dz/d*spd;
   shots.push({m,vx,vy:opts.arc?6:0,vz,life:opts.life||2.6,dmg:kind==='chair'?3:1,from:'e',grav:!!opts.arc,spin:kind!=='tea',big:kind==='chair'})}
 function hurtEnemy(e,dmg,kbForce=4){if(e.dead)return;e.hp-=dmg;e.m.flash=.15;sfx.hit();e.stun=.25;e.wind=0;e.ring.material.opacity=0;
   const dx=e.x-player.x,dz=e.z-player.z,d=Math.hypot(dx,dz)||1;e.kx=dx/d*kbForce;e.kz=dz/d*kbForce;
-  say(String(Math.max(1,Math.round(dmg))),e,dmg>=5?'crit':'dmg',.7,e.d.rat?1.2:2.8);addCombo();
+  say(String(Math.max(1,Math.round(dmg))),e,dmg>=5?'crit':'dmg',.7,e.d.rat?1.2:2.8);addCombo();addRage(Math.min(dmg,6)*2.4);
   if(e.hp<=0){e.dead=true;sfx.pop();say(rnd(e.d.bye),e,'',1.4,e.d.rat?1.5:3.4);burst(e.x,1,e.z,14,'#f2b632');
-    const n=e.d.rat?1:(e.type==='greeter'?4:2);for(let i=0;i<n;i++)addPickup('coin',e.x+R(-1,1),e.z+R(-1,1));if(Math.random()<.08)addPickup('tea',e.x,e.z);
+    const n=(e.d.rat?1:(e.type==='greeter'?4:2))*(e.elite?3:1);if(e.elite&&Math.random()<.35)addPickup(Math.random()<.5?'punch':'tea',e.x+1,e.z);for(let i=0;i<n;i++)addPickup('coin',e.x+R(-1,1),e.z+R(-1,1));if(Math.random()<.08)addPickup('tea',e.x,e.z);
     scene.remove(e.m.g);enemies.splice(enemies.indexOf(e),1);onKill(e)}}
-function hurtBoss(dmg){if(!boss)return;boss.hp-=dmg;boss.m.flash=.15;sfx.hit();bossUI();say(String(Math.max(1,Math.round(dmg))),boss,dmg>=5?'crit':'dmg',.7,4.2);addCombo();
+function hurtBoss(dmg){if(!boss)return;boss.hp-=dmg;boss.m.flash=.15;sfx.hit();bossUI();say(String(Math.max(1,Math.round(dmg))),boss,dmg>=5?'crit':'dmg',.7,boss.hy-.2);addCombo();addRage(Math.min(dmg,6)*2.4);
   if(boss.phase===1&&boss.hp<=boss.max/2&&boss.hp>0)bossPhase2();
   if(boss.hp<=0)onBossDown()}
 function bossPhase2(){boss.phase=2;shake=.8;sfx.boss();
-  if(boss.kind==='ahmad'){say('وضع الكاشير الغاضب!',boss,'big',2,4.8);boss.m.mats.forEach(m=>m.color.lerp(new THREE.Color('#ff7a6a'),.25))}
-  else{say('خلاص! أنا زعلان!',boss,'big',2,4.6);const ch=boss.m.chair;if(ch){boss.m.g.remove(ch);boss.m.chair=null}sitPose(boss.m,false);enemyShot(boss.x,1,boss.z,'chair',{spd:12,life:3})}}
-function hurtPlayer(n,src){if(player.inv>0||mode!=='play'||player.roll>0)return;player.hp-=n;stats.dmgTaken+=n;player.inv=1;sfx.hurt();hpUI();combo=0;$('combo').hidden=true;
+  const L={ahmad:'وضع الكاشير الغاضب!',rash:'خلاص! أنا زعلان!',doctor:'وقت الجلسة المكثفة!',ghazi:'جوع شديد!',saleh:'احترم الكبير!'}[boss.kind];say(L,boss,'big',2,boss.hy+.4);
+  if(boss.kind==='ahmad'||boss.kind==='ghazi')boss.m.mats.forEach(m=>m.color.lerp(new THREE.Color('#ff7a6a'),.22));
+  if(boss.kind==='rash'){const ch=boss.m.chair;if(ch){boss.m.g.remove(ch);boss.m.chair=null}sitPose(boss.m,false);enemyShot(boss.x,1,boss.z,'chair',{spd:12,life:3})}}
+function hurtPlayer(n,src){if(player.inv>0||mode!=='play'||player.roll>0)return;player.hp-=n;stats.dmgTaken+=n;player.inv=1;sfx.hurt();hpUI();combo=0;addRage(8);$('combo').hidden=true;
   say(rnd(['يا بوي!','يا ويلاه!','آح!','ماشي ماشي!']),player,'red',1,3.6);$('hurt').style.opacity=1;setTimeout(()=>$('hurt').style.opacity=player.hp<=3?.45:0,180);shake=Math.max(shake,.45);
-  if(src){const dx=player.x-src.x,dz=player.z-src.z,d=Math.hypot(dx,dz)||1;kb.x=dx/d*10;kb.z=dz/d*10}
+  if(src&&fazT<=0){const dx=player.x-src.x,dz=player.z-src.z,d=Math.hypot(dx,dz)||1;kb.x=dx/d*10;kb.z=dz/d*10}
   if(player.hp<=0)die()}
 const kb={x:0,z:0};
 function megaPunch(){
@@ -658,14 +837,17 @@ function megaPunch(){
   shots.filter(s=>s.from==='e').forEach(s=>s.life=0);breakables.slice().forEach(b=>{if(Math.hypot(b.x-player.x,b.z-player.z)<12)breakIt(b)});
   if(boss&&Math.hypot(boss.x-player.x,boss.z-player.z)<26)hurtBoss(15);
 }
+function rageUI(){$('rageBar').style.width=(fazT>0?fazT/7*100:rage)+'%';$('bFaz').hidden=!(rage>=100&&fazT<=0&&mode==='play')}
+function addRage(v){if(fazT>0)return;const was=rage;rage=Math.min(100,rage+v);if(was<100&&rage>=100){toast('الفزعة جاهزة!','Rage is full: tap فزعة');sfx.pick()}rageUI()}
+function fazaa(){if(mode!=='play'||rage<100||fazT>0)return;rage=0;fazT=7;rageUI();sfx.boom();shake=1;hitStop=.1;MUS.level=2;say('فزعة!',player,'big',1.4,5);burst(player.x,1.5,player.z,40,'#f2b632',10);player.hp=Math.min(player.maxHp,player.hp+2);hpUI()}
 function roll(){if(mode!=='play'||player.roll>0||player.rollCd>0)return;let dx=Math.sin(player.yaw),dz=Math.cos(player.yaw);const l=Math.hypot(lastIn.x,lastIn.z);if(l>.1){dx=lastIn.x/l;dz=lastIn.z/l;player.yaw=Math.atan2(dx,dz)}
   player.roll=.38;player.rollCd=.7;player.rdx=dx;player.rdz=dz;sfx.roll();dust(player.x,player.z,6)}
 
 // ================= UI =================
-function weaponList(){return ['dates','onion','chicken'].filter(w=>weapons[w]!==undefined)}
+function weaponList(){return ['dates','slipper','onion','chicken'].filter(w=>weapons[w]!==undefined)}
 function hpUI(){$('hpBar').style.width=Math.max(0,player.hp/player.maxHp*100)+'%';$('hpTxt').textContent=Math.max(0,Math.ceil(player.hp))+'/'+player.maxHp}
 function coinUI(){$('coins').textContent='ريال '+wallet}
-function wpnUI(){const l=weaponList();if(wIdx>=l.length)wIdx=0;const w=l[wIdx];$('atkSub').textContent=w?(WEAP[w].en+(w==='dates'?'':' ×'+weapons[w])):'slap';$('wpnSub').textContent=w?WEAP[w].ar:'';$('bWpn').hidden=l.length<2}
+function wpnUI(){const l=weaponList();if(wIdx>=l.length)wIdx=0;const w=l[wIdx];$('atkSub').textContent=w?(WEAP[w].en+(isFinite(weapons[w])?' ×'+weapons[w]:'')):'slap';$('wpnSub').textContent=w?WEAP[w].ar:'';$('bWpn').hidden=l.length<2}
 function punUI(){$('punN').textContent='×'+punches;$('bPun').hidden=!(punches>0&&mode==='play')}
 function switchWpn(){const l=weaponList();if(l.length<2)return;wIdx=(wIdx+1)%l.length;wpnUI();sfx.blip();toast(WEAP[l[wIdx]].ar,WEAP[l[wIdx]].en)}
 
@@ -683,7 +865,7 @@ $('shopBtn').onclick=openShop;$('shopClose').onclick=()=>{$('shopCard').hidden=t
 // ================= Input =================
 const keys={};let joyX=0,joyZ=0,jumpQ=false,atkHeld=false;const lastIn={x:0,z:0};
 addEventListener('keydown',e=>{keys[e.code]=true;if(mode==='talk'&&(e.code==='Space'||e.code==='Enter')){e.preventDefault();next();return}
-  if(mode!=='play')return;if(e.code==='Space'){e.preventDefault();jumpQ=true}if(e.code==='KeyF'||e.code==='KeyJ')atkHeld=true;if(e.code==='KeyQ')switchWpn();if(e.code==='KeyR')megaPunch();
+  if(mode!=='play')return;if(e.code==='Space'){e.preventDefault();jumpQ=true}if(e.code==='KeyF'||e.code==='KeyJ')atkHeld=true;if(e.code==='KeyQ')switchWpn();if(e.code==='KeyR')megaPunch();if(e.code==='KeyV')fazaa();
   if(e.code==='ShiftLeft'||e.code==='ShiftRight'||e.code==='KeyK')roll();if(e.code==='KeyE'&&!$('shopBtn').hidden)openShop();if(e.code==='KeyP'||e.code==='Escape')pause()});
 addEventListener('keyup',e=>{keys[e.code]=false;if(e.code==='KeyF'||e.code==='KeyJ')atkHeld=false});
 const joy=$('joy'),knob=$('knob');let joyId=null;
@@ -693,7 +875,8 @@ joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;joy.
 joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)joyMove(e)});
 ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>joy.addEventListener(ev,()=>{joyId=null;joyX=joyZ=0;knob.style.transform=''}));
 function hold(el,on,off){el.addEventListener('pointerdown',e=>{e.preventDefault();el.setPointerCapture?.(e.pointerId);el.classList.add('on');on()});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>el.addEventListener(ev,()=>{el.classList.remove('on');off&&off()}))}
-hold($('bAtk'),()=>atkHeld=true,()=>atkHeld=false);hold($('bJmp'),()=>jumpQ=true);hold($('bWpn'),switchWpn);hold($('bPun'),megaPunch);hold($('bRol'),roll);
+hold($('bAtk'),()=>atkHeld=true,()=>atkHeld=false);hold($('bJmp'),()=>jumpQ=true);hold($('bWpn'),switchWpn);hold($('bPun'),megaPunch);hold($('bRol'),roll);hold($('bFaz'),fazaa);
+$('musBtn').onclick=()=>{audio();setMusic(!MUS.on)};
 function pause(){if(mode!=='play')return;mode='pause';$('pauseCard').hidden=false}
 $('pauseBtn').onclick=pause;$('resumeBtn').onclick=()=>{$('pauseCard').hidden=true;mode='play';last=performance.now()};
 $('restartBtn').onclick=()=>{$('pauseCard').hidden=true;mode='play';startSection(0)};
@@ -701,16 +884,18 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
 
 // ================= Death / end =================
 function die(){mode='dead';showUI(false);sfx.hurt();$('hurt').style.opacity=0;combo=0;$('combo').hidden=true;
-  const who={0:['أم نواف رجعتك السرير!','Umm Nawaf sent you back to bed!'],1:['سلّفت راتبك كله!','You lent out your whole salary!'],2:['عم أحمد فاز هالمرة!','Uncle Ahmad wins this round!'],3:['رشيدة قعد لين الفجر!','Rasheedeh stayed until dawn!']}[cp];
+  const who={0:['أم نواف رجعتك السرير!','Umm Nawaf sent you back to bed!'],1:['سلّفت راتبك كله!','You lent out your whole salary!'],2:['عم أحمد فاز هالمرة!','Uncle Ahmad wins this round!'],3:['رشيدة قعد لين الفجر!','Rasheedeh stayed until dawn!'],10:['لبّسوك الجاكيت!','They got you in the jacket!'],11:['أم غازي حسبتك مندي!','Umm Ghazi mistook you for mandi!'],12:['العم صالح أكل اللحمة!','Uncle Saleh ate the meat!']}[cp];
   $('resAr').textContent=who[0];$('resEn').textContent=who[1];$('resBody').innerHTML='<p>You keep your riyals and upgrades. Visit Abu Saad\'s shop to get stronger, then try again from the checkpoint.</p>';
   const b=$('resBtns');b.innerHTML='';const tb=document.createElement('button');tb.textContent='Try again';tb.onclick=()=>{$('result').hidden=true;mode='play';startSection(cp,true)};b.append(tb);
   $('result').hidden=false;tb.focus()}
-function chapterDone(){mode='end';showUI(false);sfx.win();store.set('cp',null);
+function chapterDone(ch){if(typeof ch!=='number')ch=1;mode='end';showUI(false);sfx.win();store.set('cp',null);
   const m=Math.floor(stats.time/60),s=Math.floor(stats.time%60),score=stats.kills*10+stats.maxCombo*5-stats.dmgTaken*4-Math.floor(stats.time/10);
   const grade=score>220?'S':score>160?'A':score>100?'B':score>50?'C':'D';
-  $('resAr').textContent='نهاية الفصل الأول';$('resEn').textContent='Chapter 1 complete';
-  $('resBody').innerHTML=`<div class="grade">${grade}</div><div class="stats"><span>Time</span><span>${m}:${String(s).padStart(2,'0')}</span><span>Enemies beaten</span><span>${stats.kills}</span><span>Best combo</span><span>×${stats.maxCombo}</span><span>Damage taken</span><span>${stats.dmgTaken}</span><span>Riyals in wallet</span><span>${wallet}</span></div><p>Coming in Chapter 2: the psych ward escape and Umm Ghazi's alley.</p>`;
-  const b=$('resBtns');b.innerHTML='';const tb=document.createElement('button');tb.textContent='Play again';tb.onclick=()=>{$('result').hidden=true;mode='play';startSection(0)};b.append(tb);$('result').hidden=false}
+  $('resAr').textContent=ch===2?'نهاية الفصل الثاني':'نهاية الفصل الأول';$('resEn').textContent='Chapter '+ch+' complete';
+  $('resBody').innerHTML=`<div class="grade">${grade}</div><div class="stats"><span>Time</span><span>${m}:${String(s).padStart(2,'0')}</span><span>Enemies beaten</span><span>${stats.kills}</span><span>Best combo</span><span>×${stats.maxCombo}</span><span>Damage taken</span><span>${stats.dmgTaken}</span><span>Riyals in wallet</span><span>${wallet}</span></div><p>${ch===1?'Chapter 2 is ready: escape the psych ward, survive Umm Ghazi\'s alley, and win the last piece of meat.':'You finished every chapter. More of Abu Nawaf\'s adventures coming soon.'}</p>`;
+  const b=$('resBtns');b.innerHTML='';
+  if(ch===1){const c2=document.createElement('button');c2.textContent='Chapter 2 · الفصل الثاني';c2.onclick=()=>{$('result').hidden=true;mode='play';startSection(10)};b.append(c2)}
+  const tb=document.createElement('button');if(ch===1)tb.className='ghost';tb.textContent='Play again';tb.onclick=()=>{$('result').hidden=true;mode='play';startSection(ch===2?10:0)};b.append(tb);$('result').hidden=false}
 
 // ================= Pickups =================
 function collect(p){
@@ -719,6 +904,7 @@ function collect(p){
   sfx.pick();burst(p.x,1,p.z,16,'#f2b632');
   if(p.type==='vest'){outfit='vest';buildPlayer();burst(player.x,1.5,player.z,30,'#c9ccd2',5);talk(STORY.vest,()=>{step='dates';objective('جيب كيس التمر من المطبخ','Grab the bag of dates from the kitchen',{x:12.6,z:11.6})})}
   else if(p.type==='dates'){weapons.dates=Infinity;wIdx=0;wpnUI();talk(STORY.dates,()=>{step='kids';killGoal=3;kills=0;objTarget={x:0,z:4};killUI('أكّل العيال تمر','Give the kids dates');spawnWave('kids')})}
+  else if(p.type==='slipper'){weapons.slipper=Infinity;wIdx=weaponList().indexOf('slipper');wpnUI();talk(STORY2.slipper,()=>{step='ward';killGoal=7;kills=0;objTarget={x:X2,z:-54};killUI('اشرد من الجناح','Escape the ward');spawnWave('ward0')})}
   else if(p.type==='onion'){weapons.onion=(weapons.onion||0)+25;wIdx=weaponList().indexOf('onion');wpnUI();toast('قاذف البصل!','Onion launcher · 3× damage')}
   else if(p.type==='chicken'){weapons.chicken=(weapons.chicken||0)+10;wIdx=weaponList().indexOf('chicken');wpnUI();toast('قاذف الدجاج المجمد!','Frozen chicken · explodes')}
   else if(p.type==='ammo'){if(weapons.onion!==undefined)weapons.onion+=15;if(weapons.chicken!==undefined)weapons.chicken+=4;wpnUI();toast('ذخيرة!','Ammo refilled')}
@@ -755,7 +941,7 @@ function update(dt){
   stats.time+=dt;
   let ix=joyX,iz=joyZ;if(keys.KeyA||keys.ArrowLeft)ix-=1;if(keys.KeyD||keys.ArrowRight)ix+=1;if(keys.KeyW||keys.ArrowUp)iz-=1;if(keys.KeyS||keys.ArrowDown)iz+=1;
   const il=Math.hypot(ix,iz);if(il>1){ix/=il;iz/=il}lastIn.x=ix;lastIn.z=iz;
-  const spd=(player.speedT>0?11:7.2)*spdMul()*Math.min(1,il);if(player.speedT>0)player.speedT-=dt;
+  const spd=(player.speedT>0?11:7.2)*spdMul()*(fazT>0?1.15:1)*Math.min(1,il);if(player.speedT>0)player.speedT-=dt;
   if(player.roll>0){player.roll-=dt;moveCircle(player,player.rdx*17*dt,player.rdz*17*dt,.55);if(Math.random()<.5)dust(player.x,player.z,1)}
   else{if(il>.08)player.yaw=Math.atan2(ix,iz);moveCircle(player,ix*spd*dt,iz*spd*dt,.55)}
   if(player.rollCd>0)player.rollCd-=dt;
@@ -763,16 +949,17 @@ function update(dt){
   if(jumpQ&&player.y<=0){player.vy=9.5;sfx.jump();dust(player.x,player.z,4)}jumpQ=false;
   const wasAir=player.y>0;player.vy-=26*dt;player.y=Math.max(0,player.y+player.vy*dt);if(player.y<=0){player.vy=0;if(wasAir){player.land=.15;dust(player.x,player.z,5)}}
   if(player.inv>0)player.inv-=dt;if(player.cd>0)player.cd-=dt;if(atkHeld)attack();
+  if(fazT>0){fazT-=dt;rageUI();if(Math.random()<dt*25)burst(player.x+R(-.6,.6),R(.5,2.5),player.z+R(-.6,.6),1,'#f2b632',1.5);if(fazT<=0){toast('خلصت الفزعة','Rage is over');if(!boss)MUS.level=1;rageUI()}}
   if(comboT>0){comboT-=dt;if(comboT<=0){combo=0;$('combo').hidden=true}}
   const pm=player.model;pm.g.position.set(player.x,player.y,player.z);pm.g.rotation.y=player.yaw;
   if(player.roll>0){const q=1-player.roll/.38;pm.g.rotation.x=q*Math.PI*2;pm.g.position.y=player.y+Math.sin(q*Math.PI)*.7}else pm.g.rotation.x=0;
-  if(player.land>0){player.land-=dt;pm.g.scale.set(1.12,.88,1.12)}else pm.g.scale.set(1,1,1);
+  const fs=fazT>0?1.55:1;if(player.land>0){player.land-=dt;pm.g.scale.set(1.12*fs,.88*fs,1.12*fs)}else pm.g.scale.set(fs,fs,fs);
   animP(pm,player.roll>0?0:spd*(il>.08?1:0),dt);pm.g.visible=!(player.inv>0&&Math.floor(t*14)%2);
   if(spd>2&&player.y<=0&&Math.random()<dt*6)dust(player.x,player.z,1);
   cars.forEach(c=>{if(Math.abs(player.x-c.x)<1.6&&Math.abs(player.z-c.z)<2.7&&player.y<1.2){if(player.inv<=0&&player.roll<=0){sfx.honk();say('بيب بيب!',c,'',1,3)}hurtPlayer(2,{x:c.x,z:c.z-c.dir})}});
   for(let i=pickups.length-1;i>=0;i--){const p=pickups[i];const d=Math.hypot(p.x-player.x,p.z-player.z);
     if(p.type==='coin'&&d<magR()){p.x+=(player.x-p.x)*dt*7;p.z+=(player.z-p.z)*dt*7;p.g.position.set(p.x,0,p.z)}
-    if(d<1.3){if((p.type==='dates'&&step!=='dates')||(p.type==='vest'&&step!=='vest'))continue;collect(p)}}
+    if(d<1.3){if((p.type==='dates'&&step!=='dates')||(p.type==='vest'&&step!=='vest')||(p.type==='slipper'&&step!=='slipper'))continue;collect(p)}}
   for(const e of enemies.slice()){const dx=player.x-e.x,dz=player.z-e.z,d=Math.hypot(dx,dz)||1;
     if(e.stun>0)e.stun-=dt;
     moveCircle(e,e.kx*dt,e.kz*dt,.5);e.kx*=Math.pow(.01,dt);e.kz*=Math.pow(.01,dt);
@@ -783,43 +970,71 @@ function update(dt){
       else if(e.wind>0){e.wind-=dt;e.ring.material.opacity=.4+.5*(1-e.wind/.45);e.ring.scale.setScalar(1.6-e.wind);if(e.wind<=0){e.ring.material.opacity=0;if(d<2.3)hurtPlayer(e.d.dmg,e);e.cd=R(1,1.6)}}
       else{
         e.cd-=dt;e.rcd-=dt;
-        if(e.d.ranged&&d>5&&d<15&&e.rcd<=0){e.rcd=R(3,4.5);enemyShot(e.x,1.6,e.z,'paper');say('سند!',e,'',1,3.2);e.m.throwT=.22}
-        if(e.d.charger&&d>4&&d<11&&e.rcd<=0){e.rcd=R(4,6);e.dash=.7;e.dvx=dx/d*12;e.dvz=dz/d*12;say('خصم! خصم!',e,'red',1,3.2)}
+        if(e.d.ranged&&d>5&&d<15&&e.rcd<=0){e.rcd=R(3,4.5);enemyShot(e.x,1.6,e.z,e.d.shot||'paper');say(e.d.shotSay||'سند!',e,'',1,3.2);e.m.throwT=.22}
+        if(e.d.charger&&d>4&&d<11&&e.rcd<=0){e.rcd=R(4,6);e.dash=.7;e.dvx=dx/d*12;e.dvz=dz/d*12;say(e.d.chargeSay||'خصم! خصم!',e,'red',1,e.d.animal?2:3.2)}
         if(d>1.5){mv=e.d.spd;moveCircle(e,dx/d*mv*dt,dz/d*mv*dt,.5)}
         else if(e.cd<=0)e.wind=.45;
       }
       e.m.g.rotation.y=Math.atan2(dx,dz)}
     else if(e.stun<=0)e.ring.material.opacity=0;
     e.m.g.position.set(e.x,0,e.z);
-    if(e.m.rat){e.m.g.position.y=Math.abs(Math.sin(t*16))*.1;if(e.m.flash>0){e.m.flash-=dt;e.m.mats.forEach(m=>m.emissive.setRGB(1,1,1))}else e.m.mats.forEach(m=>m.emissive.setRGB(0,0,0))}
+    if(e.m.animal){e.m.g.position.y=Math.abs(Math.sin(t*16))*.1;if(e.m.flash>0){e.m.flash-=dt;e.m.mats.forEach(m=>m.emissive.setRGB(1,1,1))}else e.m.mats.forEach(m=>m.emissive.setRGB(0,0,0))}
     else animP(e.m,mv,dt)}
   for(let i=0;i<enemies.length;i++)for(let j=i+1;j<enemies.length;j++){const a=enemies[i],b=enemies[j],dx=b.x-a.x,dz=b.z-a.z,d=Math.hypot(dx,dz);if(d<1.1&&d>0){const p=(1.1-d)/2;a.x-=dx/d*p;a.z-=dz/d*p;b.x+=dx/d*p;b.z+=dz/d*p}}
-  if(boss){const b=boss,dx=player.x-b.x,dz=player.z-b.z,d=Math.hypot(dx,dz)||1,p2=b.phase===2;b.talk-=dt;b.cd-=dt;b.cd2-=dt;
-    if(b.talk<=0){b.talk=R(2.6,4);say(rnd(b.lines),b,'',1.8,4.4)}
+  if(boss){const b=boss,dx=player.x-b.x,dz=player.z-b.z,d=Math.hypot(dx,dz)||1,p2=b.phase===2;b.talk-=dt;b.cd-=dt;b.cd2-=dt;b.cd3-=dt;
+    if(b.talk<=0){b.talk=R(2.6,4);say(rnd(b.lines),b,'',1.8,b.hy)}
     let mv=0;
-    if(b.kind==='ahmad'){const sp=p2?3.2:2;if(d>3){mv=sp;moveCircle(b,dx/d*sp*dt,dz/d*sp*dt,.9)}
-      if(b.cd<=0){b.cd=p2?R(1.1,1.6):R(1.6,2.4);b.m.throwT=.22;const base=Math.atan2(dx,dz),n=p2?5:3;for(let k=0;k<n;k++){const a=base+(k-(n-1)/2)*.22;enemyShot(b.x,2.2,b.z,'receipt',{dir:[Math.sin(a),Math.cos(a)]})}}
-      if(b.cd2<=0){b.cd2=p2?R(4,5):R(7,9);if(p2){say('فلوس الدرج!',b,'red',1.4,4.6);for(let k=0;k<10;k++){const a=k/10*Math.PI*2;enemyShot(b.x,1,b.z,'coin',{dir:[Math.sin(a),Math.cos(a)],spd:9})}}
-        else{say('فاتورة! يا فيران!',b,'red',1.6,4.6);spawnEnemy('rat',b.x+R(-3,3),b.z+2);spawnEnemy('rat',b.x+R(-3,3),b.z+2)}}
+    const fan=(kind,n,spread,opts={})=>{const base=Math.atan2(dx,dz);for(let k=0;k<n;k++){const a=base+(k-(n-1)/2)*spread;enemyShot(b.x,b.ty+.2,b.z,kind,Object.assign({dir:[Math.sin(a),Math.cos(a)]},opts))}b.m.throwT=.22};
+    const walk=(sp,keep=0)=>{if(d>Math.max(keep,b.r+1.6)){mv=sp;moveCircle(b,dx/d*sp*dt,dz/d*sp*dt,b.r)}};
+    if(b.slam){b.slam.t-=dt;const q=1-b.slam.t/b.slam.max;b.slam.mesh.material.opacity=.25+.6*q;b.slam.mesh.scale.setScalar(.3+.7*q);
+      if(b.slam.t<=0){if(Math.hypot(player.x-b.x,player.z-b.z)<b.slam.r&&player.y<.6)hurtPlayer(2,b);sfx.boom();shake=Math.max(shake,.8);burst(b.x,.3,b.z,30,'#d9c4a0',9);scene.remove(b.slam.mesh);b.slam=null}}
+    if(b.pull>0){b.pull-=dt;if(player.roll<=0)moveCircle(player,-dx/d*4.2*dt,-dz/d*4.2*dt,.55);if(Math.random()<dt*20)dust(player.x,player.z,1)}
+    if(b.kind==='ahmad'){walk(p2?3.2:2);
+      if(b.cd<=0){b.cd=p2?R(1.1,1.6):R(1.6,2.4);fan('receipt',p2?5:3,.22)}
+      if(b.cd2<=0){b.cd2=p2?R(4,5):R(7,9);if(p2){say('فلوس الدرج!',b,'red',1.4,b.hy);for(let k=0;k<10;k++){const a=k/10*Math.PI*2;enemyShot(b.x,1,b.z,'coin',{dir:[Math.sin(a),Math.cos(a)],spd:9})}}
+        else{say('فاتورة! يا فيران!',b,'red',1.6,b.hy);spawnEnemy('rat',b.x+R(-3,3),b.z+2);spawnEnemy('rat',b.x+R(-3,3),b.z+2)}}
       if(d<2.1)hurtPlayer(1,b)}
-    else if(!p2){
-      if(b.dash>0){b.dash-=dt;moveCircle(b,b.dvx*dt,b.dvz*dt,1);if(b.m.chair)b.m.chair.rotation.y+=dt*12;if(d<1.9)hurtPlayer(2,b)}
-      else{if(b.m.chair)b.m.chair.rotation.y*=.9;if(b.cd<=0){b.cd=R(1.4,2.2);enemyShot(b.x,2.2,b.z,'tea',{arc:true})}
-        if(b.cd2<=0){b.cd2=R(3.2,4.5);b.dash=1.1;b.dvx=dx/d*14;b.dvz=dz/d*14;say('وييييي!',b,'red',1,4.4)}}}
-    else{if(d>2.2){mv=3.4;moveCircle(b,dx/d*3.4*dt,dz/d*3.4*dt,.9)}
-      if(b.cd<=0){b.cd=R(1,1.5);b.m.throwT=.22;for(let k=-1;k<=1;k++){const a=Math.atan2(dx,dz)+k*.3;enemyShot(b.x,2.2,b.z,'tea',{dir:[Math.sin(a),Math.cos(a)],arc:true})}}
-      if(b.cd2<=0){b.cd2=R(6,8);say('تيليفون كايديه!',b,'big',1.6,4.6);spawnEnemy('customer',b.x+3,b.z);spawnEnemy('customer',b.x-3,b.z)}
-      if(d<2)hurtPlayer(1,b)}
-    b.m.g.position.set(b.x,0,b.z);b.m.g.rotation.y=Math.atan2(dx,dz);animP(b.m,mv,dt)}
-  for(let i=shots.length-1;i>=0;i--){const s=shots[i];s.life-=dt;if(s.grav)s.vy-=18*dt;const p=s.m.position;p.x+=s.vx*dt;p.y+=s.vy*dt;p.z+=s.vz*dt;
+    else if(b.kind==='rash'){
+      if(!p2){if(b.dash>0){b.dash-=dt;moveCircle(b,b.dvx*dt,b.dvz*dt,1);if(b.m.chair)b.m.chair.rotation.y+=dt*12;if(d<1.9)hurtPlayer(2,b)}
+        else{if(b.m.chair)b.m.chair.rotation.y*=.9;if(b.cd<=0){b.cd=R(1.4,2.2);enemyShot(b.x,2.2,b.z,'tea',{arc:true})}
+          if(b.cd2<=0){b.cd2=R(3.2,4.5);b.dash=1.1;b.dvx=dx/d*14;b.dvz=dz/d*14;say('وييييي!',b,'red',1,b.hy)}}}
+      else{walk(3.4,2.2);if(b.cd<=0){b.cd=R(1,1.5);fan('tea',3,.3,{arc:true})}
+        if(b.cd2<=0){b.cd2=R(6,8);say('تيليفون كايديه!',b,'big',1.6,b.hy);spawnEnemy('customer',b.x+3,b.z);spawnEnemy('customer',b.x-3,b.z)}
+        if(d<2)hurtPlayer(1,b)}}
+    else if(b.kind==='doctor'){
+      if(b.dash>0){b.dash-=dt;moveCircle(b,b.dvx*dt,b.dvz*dt,b.r);if(d<2)hurtPlayer(2,b)}else walk(p2?3:2.2,5);
+      if(b.cd<=0){b.cd=p2?R(1,1.4):R(1.5,2.2);fan('pill',p2?5:3,.25)}
+      if(b.cd2<=0){b.cd2=p2?R(6,8):R(8,10);say('يا ممرضات!',b,'red',1.4,b.hy);spawnEnemy('nurse',b.x+3,b.z);spawnEnemy('nurse',b.x-3,b.z)}
+      if(p2&&b.cd3<=0){b.cd3=R(3.5,5);b.dash=.7;b.dvx=dx/d*14;b.dvz=dz/d*14;say('الإبرة!',b,'red',1,b.hy)}
+      if(d<2.1)hurtPlayer(1,b)}
+    else if(b.kind==='ghazi'){walk(p2?2.4:1.8);
+      if(!b.slam&&b.cd<=0){b.cd=p2?R(2,2.8):R(3,4);const m=new THREE.Mesh(new THREE.RingGeometry(.2,4.6,40),new THREE.MeshBasicMaterial({color:'#ff3b2f',transparent:true,opacity:.25,depthWrite:false,side:THREE.DoubleSide}));m.rotation.x=-Math.PI/2;m.position.set(b.x,.08,b.z);scene.add(m);b.slam={t:.95,max:.95,r:4.8,mesh:m};say('بوووم!',b,'red',1,b.hy);b.m.throwT=.4}
+      if(b.cd2<=0){b.cd2=R(3,4.5);fan('ladle',p2?5:3,.3,{arc:true})}
+      if(p2&&b.cd3<=0){b.cd3=R(7,9);b.pull=2.4;say('تعال يا مندي!',b,'big',2,b.hy);spawnEnemy('cat',b.x+3,b.z+2)}
+      if(d<b.hr+.6)hurtPlayer(1,b)}
+    else if(b.kind==='saleh'){
+      if(b.dash>0){b.dash-=dt;moveCircle(b,b.dvx*dt,b.dvz*dt,b.r);if(d<2.1)hurtPlayer(2,b)}else walk(p2?3:2.3);
+      if(b.cd<=0){b.cd=p2?R(1.2,1.7):R(1.7,2.4);fan('bone',p2?5:3,.24)}
+      if(b.cd2<=0){b.cd2=R(4,5.5);fan('dallah',2,.5,{arc:true})}
+      if(p2&&b.cd3<=0){b.cd3=R(5,6.5);b.dash=.9;b.dvx=dx/d*13;b.dvz=dz/d*13;say('دوّارة البشت!',b,'red',1,b.hy);if(Math.random()<.5){spawnEnemy('eidkid',b.x+2,b.z);spawnEnemy('eidkid',b.x-2,b.z)}}
+      if(d<2.1)hurtPlayer(1,b)}
+    if(!boss)return;
+    b.m.g.position.set(b.x,0,b.z);if(b.kind==='saleh'&&b.dash>0)b.m.g.rotation.y+=dt*14;else b.m.g.rotation.y=Math.atan2(dx,dz);animP(b.m,mv,dt)}
+  for(let i=shots.length-1;i>=0;i--){const s=shots[i];if(!s)continue;s.life-=dt;if(s.grav)s.vy-=18*dt;const p=s.m.position;p.x+=s.vx*dt;p.y+=s.vy*dt;p.z+=s.vz*dt;
     if(s.spin){s.m.rotation.x+=dt*10;s.m.rotation.y+=dt*8}else s.m.rotation.y+=dt*6;
     if(s.from==='p'&&(s.trail+=dt)>.03){s.trail=0;const tm=new THREE.Mesh(partGeo,pmat(s.aoe?'#f2c4b0':'#c98a4a'));tm.position.copy(p);tm.scale.setScalar(.6);scene.add(tm);parts.push({m:tm,vx:0,vy:0,vz:0,life:.18,rs:0})}
+    if(s.boom){s.life=1;s.age+=dt;s.m.rotation.y+=dt*16;if(!s.back&&(s.age>.45||collide(p.x,p.z,.15))){s.back=true;s.hitSet.clear()}
+      if(s.back){const bx=player.x-p.x,bz=player.z-p.z,bd=Math.hypot(bx,bz)||1;s.vx=bx/bd*24;s.vz=bz/bd*24;p.y+=((player.y+1.4)-p.y)*Math.min(1,dt*6);if(bd<1.1){scene.remove(s.m);shots.splice(i,1);continue}}
+      for(const e of enemies.slice()){if(s.hitSet.has(e))continue;if(Math.hypot(e.x-p.x,e.z-p.z)<(e.d.rat?1:1.15)){s.hitSet.add(e);hurtEnemy(e,s.dmg,6)}}
+      if(boss&&!s.hitSet.has(boss)&&Math.hypot(boss.x-p.x,boss.z-p.z)<boss.hr){s.hitSet.add(boss);hurtBoss(s.dmg)}
+      for(const b of breakables.slice()){if(!s.hitSet.has(b)&&Math.abs(b.x-p.x)<.8&&Math.abs(b.z-p.z)<.8){s.hitSet.add(b);b.hp-=s.dmg;if(b.hp<=0)breakIt(b)}}
+      continue}
     let hit=p.y<.05;
     if(s.from==='p'){
       if(!hit)for(const b of breakables){if(Math.abs(b.x-p.x)<.75&&Math.abs(b.z-p.z)<.75&&p.y<1.4){hit=true;b.hp-=s.dmg;b.g.rotation.y+=.2;if(b.hp<=0)breakIt(b);break}}
       if(!hit&&collide(p.x,p.z,.1))hit=true;
       if(!hit)for(const e of enemies){const ey=e.d.rat?.35:1.3,er=e.d.rat?.85:.95;if(Math.hypot(e.x-p.x,e.z-p.z)<er&&Math.abs(p.y-ey)<1.7){hit=true;if(!s.aoe)hurtEnemy(e,s.dmg);break}}
-      if(!hit&&boss&&Math.hypot(boss.x-p.x,boss.z-p.z)<1.6){hit=true;if(!s.aoe)hurtBoss(s.dmg)}
+      if(!hit&&boss&&Math.hypot(boss.x-p.x,boss.z-p.z)<boss.hr){hit=true;if(!s.aoe)hurtBoss(s.dmg)}
       if(hit){burst(p.x,Math.max(.3,p.y),p.z,s.aoe?26:6,s.aoe?'#f2c4b0':'#c98a4a',s.aoe?9:4);
         if(s.aoe){sfx.boom();shake=Math.max(shake,.6);hitStop=.05;const ring=new THREE.Mesh(new THREE.RingGeometry(.4,.9,32),new THREE.MeshBasicMaterial({color:'#fff3c4',transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false}));ring.rotation.x=-Math.PI/2;ring.position.set(p.x,.2,p.z);scene.add(ring);parts.push({m:ring,ring:true,life:.35});
           enemies.slice().forEach(e=>{if(Math.hypot(e.x-p.x,e.z-p.z)<s.aoe)hurtEnemy(e,s.dmg,10)});breakables.slice().forEach(b=>{if(Math.hypot(b.x-p.x,b.z-p.z)<s.aoe)breakIt(b)});if(boss&&Math.hypot(boss.x-p.x,boss.z-p.z)<s.aoe+1)hurtBoss(s.dmg)}}}
@@ -829,13 +1044,13 @@ function update(dt){
 }
 function render(dt){
   const px=player.x,pz=player.z,port=camera.aspect<1;
-  camPos.set(px,player.y*.35+(port?13:9),pz+(port?12.5:10.5));camera.position.lerp(camPos,1-Math.pow(.002,dt));
+  const far=boss&&boss.kind==='ghazi'?1.4:1;camPos.set(px,player.y*.35+(port?13:9)*far,pz+(port?12.5:10.5)*far);camera.position.lerp(camPos,1-Math.pow(.002,dt));
   if(shake>0){camera.position.x+=R(-shake,shake)*.5;camera.position.y+=R(-shake,shake)*.5;shake=Math.max(0,shake-dt*2.2)}
   camLook.set(px,1.2,pz-2.8);camera.lookAt(camLook);
   sky.position.copy(camera.position);sunDisc.position.set(camera.position.x-120,140,camera.position.z-260);sunDisc.lookAt(camera.position);
   sun.position.set(px-18,34,pz+14);sun.target.position.set(px,0,pz-2);
   if(objTarget){beam.visible=true;beam.position.set(objTarget.x,20,objTarget.z);beam.material.opacity=.14+Math.sin(t*4)*.06;arrowUI()}else{beam.visible=false;$('arrow').hidden=true}
-  const tg=mode==='play'?nearestTarget(14):null;if(tg&&tg.kind!=='crate'){tgtRing.visible=true;tgtRing.position.set(tg.x,.07,tg.z);tgtRing.rotation.z+=dt*2;tgtRing.scale.setScalar(tg.kind==='boss'?1.8:tg.o.d&&tg.o.d.rat?.7:1)}else tgtRing.visible=false;
+  const tg=mode==='play'?nearestTarget(14):null;if(tg&&tg.kind!=='crate'){tgtRing.visible=true;tgtRing.position.set(tg.x,.07,tg.z);tgtRing.rotation.z+=dt*2;tgtRing.scale.setScalar(tg.kind==='boss'?boss.hr+.2:tg.o.d&&tg.o.d.rat?.7:1)}else tgtRing.visible=false;
   renderer.render(scene,camera);
 }
 function arrowUI(){const a=$('arrow');if(mode!=='play'){a.hidden=true;return}tmpV.set(objTarget.x,1.5,objTarget.z).project(camera);const W=cv.clientWidth,H=cv.clientHeight;
@@ -851,10 +1066,11 @@ function loop(now){let dt=Math.min(.05,(now-last)/1000);last=now;
 
 // ================= Boot =================
 function boot(){
-  resize();buildWorld();buildCars();buildForklift();buildPlayer();player.model.g.position.set(0,0,26);setDay(true);resetCrates();
+  resize();buildWorld();buildWorld2();buildCars();buildForklift();buildPlayer();player.model.g.position.set(0,0,26);setDay(true);resetCrates();
   camera.position.set(0,12,38);
   const saved=store.get('cp',null);if(saved&&saved.cp>0)$('contBtn').hidden=false;
   $('startBtn').onclick=()=>{audio();$('menu').hidden=true;mode='play';startSection(0)};
+  $('ch2Btn').onclick=()=>{audio();$('menu').hidden=true;mode='play';startSection(10)};$('musBtn').textContent=MUS.on?'Music on':'Music off';
   $('contBtn').onclick=()=>{audio();$('menu').hidden=true;const s=store.get('cp',null);cpSnap=s.snap;mode='play';startSection(s.cp,true)};
   requestAnimationFrame(loop);
 }
